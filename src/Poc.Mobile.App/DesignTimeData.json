@@ -1,0 +1,46 @@
+{
+  "Views\\MainPage.xaml": {
+    "Title": "My Wallet",
+    "Connections": {
+      "Name": "My Connections",
+      "HasConnections": true,
+      "Connections": [
+        {
+          "Name": "Spark",
+          "Subtitle": "Test data"
+        },
+        {
+          "Name": "Spark",
+          "Subtitle": "Test data"
+        },
+        {
+          "Name": "Spark",
+          "Subtitle": "Test data"
+        }
+      ]
+    }
+  },
+  "Views\\Connections\\ConnectionPartialView.xaml": {
+    "Name": "Spark",
+    "Subtitle": "Test data"
+  },
+  "Views\\Connections\\ConnectionsPage.xaml": {
+    "HasConnections": false,
+    "Name": "Connections",
+    "RefreshingConnections" : false,
+    "Connections": [
+      {
+        "Name": "Spark",
+        "Subtitle": "Test data"
+      },
+      {
+        "Name": "Spark",
+        "Subtitle": "Test data"
+      },
+      {
+        "Name": "Spark",
+        "Subtitle": "Test data"
+      }
+    ]
+  }
+}

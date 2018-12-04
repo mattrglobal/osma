@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Poc.Mobile.App.Views.Connections;assembly=Poc.Mobile.App"
+             xmlns:converters="clr-namespace:Poc.Mobile.App.Converters;assembly=Poc.Mobile.App"
+             x:Class="Poc.Mobile.App.Views.Connections.ConnectionsPage"
+             Title="{Binding Name}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBooleanConverter x:Key="BooleanInverse" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout
+                IsVisible="{Binding HasConnections}">
+                <ListView
+                    HasUnevenRows="True"
+                    IsPullToRefreshEnabled="True"
+                    IsRefreshing="{Binding RefreshingConnections}"
+                    RefreshCommand="{Binding RefreshCommand}"
+                    IsEnabled="{Binding RefreshingConnections, Converter={StaticResource BooleanInverse}}"
+                    ItemsSource="{Binding Connections}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <views:ConnectionPartialView/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button
+                    Text="Add Connection"/>
+            </StackLayout>
+            <StackLayout
+                VerticalOptions="FillAndExpand"
+                IsVisible="{Binding HasConnections, Converter={StaticResource BooleanInverse}}">
+                <StackLayout
+                    Orientation="Vertical"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand">
+                    <ActivityIndicator
+                        IsVisible="{Binding RefreshingConnections}"
+                        IsRunning="{Binding RefreshingConnections}"/>
+                    <Label
+                        IsVisible="{Binding RefreshingConnections, Converter={StaticResource BooleanInverse}}" 
+                        Text="Nothing to see here.... (empty state)" />
+                </StackLayout>
+                <StackLayout
+                    VerticalOptions="End">
+                    <Button
+                        Text="Add Connection"/>
+                    <Button
+                        Text="Refresh"
+                        IsEnabled="{Binding RefreshingConnections, Converter={StaticResource BooleanInverse}}"
+                        Command="{Binding RefreshCommand}"/>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

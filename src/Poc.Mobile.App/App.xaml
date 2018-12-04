@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Poc.Mobile.App.App">
+	<Application.Resources>
+        <ResourceDictionary>
+
+            <Color x:Key="BasePageColor">#FFFFFF</Color>
+            <Color x:Key="BaseContentViewColor">#FFFFFF</Color>
+
+            <x:Double x:Key="BaseFontSize">16</x:Double>
+            <Color x:Key="BaseTextColor">#7b7b7b</Color>
+            
+            <Style
+                TargetType="ContentPage"
+                ApplyToDerivedTypes="true">
+                <Setter
+                    Property="BackgroundColor"
+                    Value="{ DynamicResource BasePageColor }" />
+            </Style>
+
+            <Style
+                TargetType="ContentView"
+                ApplyToDerivedTypes="true">
+                <Setter
+                    Property="BackgroundColor"
+                    Value="{ DynamicResource BaseContentViewColor }" />
+            </Style>
+
+            <Style
+                TargetType="Label"
+                ApplyToDerivedTypes="true">
+                <Setter
+                    Property="FontSize"
+                    Value="{StaticResource BaseFontSize}" />
+                <Setter
+                    Property="TextColor"
+                    Value="{DynamicResource BaseTextColor}" />
+                <Setter
+                    Property="HorizontalTextAlignment"
+                    Value="Start" />
+            </Style>
+            
+        </ResourceDictionary>
+	</Application.Resources>
+</Application>

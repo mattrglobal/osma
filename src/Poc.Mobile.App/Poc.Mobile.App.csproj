@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Configurations>Debug;Release;Gorilla</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Acr.UserDialogs" Version="7.0.1" />
+    <PackageReference Include="Autofac" Version="4.8.1" />
+    <PackageReference Include="ReactiveUI" Version="9.3.5" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="1.1.4.168" />
+    <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Poc.Mobile.App.Services\Poc.Mobile.App.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\Connections\ConnectionPartialView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Connections\ConnectionsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\MainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\RegisterPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

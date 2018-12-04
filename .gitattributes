@@ -1,0 +1,2 @@
+src/Poc.Mobile.App.Android/libs/** filter=lfs diff=lfs merge=lfs -text
+src/Poc.Mobile.App.iOS/libs/** filter=lfs diff=lfs merge=lfs -text
