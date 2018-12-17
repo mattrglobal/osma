@@ -21,26 +21,35 @@
     }
   },
   "Views\\Connections\\ConnectionPartialView.xaml": {
-    "Name": "Spark",
-    "Subtitle": "Test data"
+    "ConnectionName": "Spark",
+    "ConnectionSubtitle": "Test data",
+    "ConnectionImageUrl": "https://pbs.twimg.com/profile_images/899211256480940032/8XD4jxu1_400x400.jpg"
   },
   "Views\\Connections\\ConnectionsPage.xaml": {
     "HasConnections": false,
     "Name": "Connections",
-    "RefreshingConnections" : false,
+    "RefreshingConnections": false,
     "Connections": [
       {
-        "Name": "Spark",
-        "Subtitle": "Test data"
+        "ConnectionName": "Spark",
+        "ConnectionSubtitle": "Test data",
+        "ConnectionImageUrl": "https://pbs.twimg.com/profile_images/899211256480940032/8XD4jxu1_400x400.jpg"
       },
       {
-        "Name": "Spark",
-        "Subtitle": "Test data"
+        "ConnectionName": "Spark",
+        "ConnectionSubtitle": "Test data",
+        "ConnectionImageUrl": "https://pbs.twimg.com/profile_images/899211256480940032/8XD4jxu1_400x400.jpg"
       },
       {
-        "Name": "Spark",
-        "Subtitle": "Test data"
+        "ConnectionName": "Spark",
+        "ConnectionSubtitle": "Test data",
+        "ConnectionImageUrl": "https://pbs.twimg.com/profile_images/899211256480940032/8XD4jxu1_400x400.jpg"
       }
     ]
+  },
+  "Views\\Connections\\AcceptInvitePage.xaml": {
+    "InviteTitle": "Trust Spark NZ?",
+    "InviteContents": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    "InviterUrl": "https://pbs.twimg.com/profile_images/899211256480940032/8XD4jxu1_400x400.jpg"
   }
 }

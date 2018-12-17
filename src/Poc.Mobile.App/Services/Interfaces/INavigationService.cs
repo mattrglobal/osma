@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Poc.Mobile.App.Services.Interfaces
 {
     public interface INavigationService
     {
-        Task NavigateToAsync<TViewModel>() where TViewModel : IABaseViewModel;
+        Task PopModalAsync();
 
-        Task NavigateToAsync<TViewModel>(object parameter) where TViewModel : IABaseViewModel;
+        Task NavigateToAsync(Page page, NavigationType type = NavigationType.Normal);
 
-        Task NavigateToAsync<TViewModel>(TViewModel viewModel) where TViewModel : IABaseViewModel;
+        Task NavigateToAsync<TViewModel>(object parameter = null, NavigationType type = NavigationType.Normal) where TViewModel : IABaseViewModel;
+        
+        Task NavigateToAsync<TViewModel>(TViewModel viewModel, object parameter = null, NavigationType type = NavigationType.Normal) where TViewModel : IABaseViewModel;
 
         Task AddTabChildToMainView<TViewModel>(TViewModel viewModel, object parameter, int atIndex = -1) where TViewModel : IABaseViewModel;
-
-        Task NavigateToAsync(Type viewModelType);
-
-        Task NavigateToAsync(Type viewModelType, object parameter);
-
+        
         Task NavigateBackAsync();
 
         Task RemoveLastFromBackStackAsync();

@@ -1,5 +1,7 @@
 ﻿using Autofac;
+using FFImageLoading.Forms.Platform;
 using Foundation;
+using Poc.Mobile.App.Converters;
 using UIKit;
 
 namespace Poc.Mobile.App.iOS
@@ -20,12 +22,18 @@ namespace Poc.Mobile.App.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             Xamarin.Forms.Forms.Init();
-            
+
+            // Initializing FFImageLoading
+            CachedImageRenderer.Init();
+
 #if GORILLA
             LoadApplication(UXDivers.Gorilla.iOS.Player.CreateApplication(
                 new UXDivers.Gorilla.Config("Good Gorilla")
-                .RegisterAssemblyFromType<InverseBooleanConverter>()));
+                    .RegisterAssemblyFromType<InverseBooleanConverter>()));
 #else
+            // Initializing QR Code Scanning support
+            ZXing.Net.Mobile.Forms.iOS.Platform.Init();
+
             var builder = new ContainerBuilder();
             builder.RegisterModule(new PlatformModule());
             var container = builder.Build();

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="Poc.Mobile.App.Views.Connections.ConnectionPartialView">
   <ContentView.Content>
       <StackLayout
@@ -8,12 +9,21 @@
           Padding="15">
           <StackLayout
               Orientation="Horizontal">
+              <forms:CachedImage
+                  VerticalOptions="FillAndExpand"
+                  HeightRequest="50"
+                  WidthRequest="50"
+                  FadeAnimationEnabled="true"
+                  DownsampleUseDipUnits="true"
+                  Source="{ Binding ConnectionImageUrl }"
+                  Aspect="Fill"/>
                 <StackLayout
+                  VerticalOptions="CenterAndExpand"
                   Spacing="0"
                   Orientation="Vertical">
-                    <Label Text="{Binding Name}" 
+                    <Label Text="{Binding ConnectionName}" 
                          VerticalTextAlignment="Center"/>
-                    <Label Text="{Binding Subtitle}" 
+                    <Label Text="{Binding ConnectionSubtitle}" 
                          FontSize="10"
                          VerticalTextAlignment="Center"/>
                 </StackLayout>

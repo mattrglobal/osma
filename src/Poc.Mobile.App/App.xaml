@@ -10,13 +10,18 @@
 
             <x:Double x:Key="BaseFontSize">16</x:Double>
             <Color x:Key="BaseTextColor">#7b7b7b</Color>
+            <Color x:Key="LightTextColor">#FFFFFF</Color>
             
+            <Color x:Key="BlueAccentColor">#3891D6</Color>
+            <Color x:Key="RedAccentColor">#EE3A24</Color>
+            <Color x:Key="GreenAccentColor">#73DA73</Color>
+
             <Style
                 TargetType="ContentPage"
                 ApplyToDerivedTypes="true">
                 <Setter
                     Property="BackgroundColor"
-                    Value="{ DynamicResource BasePageColor }" />
+                    Value="{ StaticResource BasePageColor }" />
             </Style>
 
             <Style
@@ -24,7 +29,7 @@
                 ApplyToDerivedTypes="true">
                 <Setter
                     Property="BackgroundColor"
-                    Value="{ DynamicResource BaseContentViewColor }" />
+                    Value="{ StaticResource BaseContentViewColor }" />
             </Style>
 
             <Style
@@ -35,12 +40,57 @@
                     Value="{StaticResource BaseFontSize}" />
                 <Setter
                     Property="TextColor"
-                    Value="{DynamicResource BaseTextColor}" />
+                    Value="{StaticResource BaseTextColor}" />
                 <Setter
                     Property="HorizontalTextAlignment"
                     Value="Start" />
             </Style>
             
+            <Style
+                x:Key="BlueButtonStyle"
+                TargetType="Button"
+                ApplyToDerivedTypes="true">
+                <Setter
+                    Property="FontSize"
+                    Value="{StaticResource BaseFontSize}" />
+                <Setter
+                    Property="TextColor"
+                    Value="{StaticResource LightTextColor}" />
+                <Setter
+                    Property="BackgroundColor"
+                    Value="{StaticResource BlueAccentColor}" />
+            </Style>
+
+            <Style
+                x:Key="RedButtonStyle"
+                TargetType="Button"
+                ApplyToDerivedTypes="true">
+                <Setter
+                    Property="FontSize"
+                    Value="{StaticResource BaseFontSize}" />
+                <Setter
+                    Property="TextColor"
+                    Value="{StaticResource LightTextColor}" />
+                <Setter
+                    Property="BackgroundColor"
+                    Value="{StaticResource RedAccentColor}" />
+            </Style>
+
+            <Style
+                x:Key="GreenButtonStyle"
+                TargetType="Button"
+                ApplyToDerivedTypes="true">
+                <Setter
+                    Property="FontSize"
+                    Value="{StaticResource BaseFontSize}" />
+                <Setter
+                    Property="TextColor"
+                    Value="{StaticResource BaseTextColor}" />
+                <Setter
+                    Property="BackgroundColor"
+                    Value="{StaticResource GreenAccentColor}" />
+            </Style>
+
         </ResourceDictionary>
 	</Application.Resources>
 </Application>

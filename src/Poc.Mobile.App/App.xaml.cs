@@ -7,6 +7,7 @@ using Poc.Mobile.App.ViewModels.Connections;
 using Poc.Mobile.App.Views;
 using Poc.Mobile.App.Views.Connections;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 using MainPage = Poc.Mobile.App.Views.MainPage;
 
@@ -40,8 +41,9 @@ namespace Poc.Mobile.App
             _navigationService.AddPageViewModelBinding<MainViewModel, MainPage>();
 	        _navigationService.AddPageViewModelBinding<ConnectionsViewModel, ConnectionsPage>();
             _navigationService.AddPageViewModelBinding<RegisterViewModel, RegisterPage>();
+	        _navigationService.AddPageViewModelBinding<AcceptInviteViewModel, AcceptInvitePage>();
 
-	        if (_contextService.AgentExists())
+            if (_contextService.AgentExists())
 	            await _navigationService.NavigateToAsync<MainViewModel>();
 	        else
 	            await _navigationService.NavigateToAsync<RegisterViewModel>();

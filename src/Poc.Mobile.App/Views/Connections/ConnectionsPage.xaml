@@ -30,6 +30,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
                 <Button
+                    Command ="{Binding ScanInviteCommand}"
                     Text="Add Connection"/>
             </StackLayout>
             <StackLayout
@@ -49,6 +50,7 @@
                 <StackLayout
                     VerticalOptions="End">
                     <Button
+                        Command ="{Binding ScanInviteCommand}"
                         Text="Add Connection"/>
                     <Button
                         Text="Refresh"

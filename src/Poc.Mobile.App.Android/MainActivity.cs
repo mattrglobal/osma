@@ -6,6 +6,7 @@ using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Autofac;
+using FFImageLoading.Forms.Platform;
 using Java.Lang;
 using Poc.Mobile.App.Converters;
 using Xamarin.Forms;
@@ -24,16 +25,25 @@ namespace Poc.Mobile.App.Droid
 
             Forms.Init(this, bundle);
 
+            // Initializing FFImageLoading
+            CachedImageRenderer.Init(false);
+
+            // Initializing User Dialogs
             UserDialogs.Init(() => (Activity)Forms.Context);
 
 #if GORILLA
             LoadApplication(UXDivers.Gorilla.Droid.Player.CreateApplication(
                 this,
                 new UXDivers.Gorilla.Config("Good Gorilla")
-                .RegisterAssemblyFromType<InverseBooleanConverter>()));
+                .RegisterAssemblyFromType<InverseBooleanConverter>()
+                .RegisterAssemblyFromType<CachedImageRenderer>()));
 #else
+            //Loading dependent libindy
             JavaSystem.LoadLibrary("gnustl_shared");
             JavaSystem.LoadLibrary("indy");
+
+            // Initializing QR Code Scanning support
+            ZXing.Net.Mobile.Forms.Android.Platform.Init();
 
             //Marshmellow and above require permission requests to be made at runtime
             if ((int)Build.VERSION.SdkInt >= 23)
@@ -50,7 +60,8 @@ namespace Poc.Mobile.App.Droid
         readonly string[] _permissionsRequired =
         {
             Manifest.Permission.ReadExternalStorage,
-            Manifest.Permission.WriteExternalStorage
+            Manifest.Permission.WriteExternalStorage,
+            Manifest.Permission.Camera
         };
 
         private int _requestCode = -1;

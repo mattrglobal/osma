@@ -29,5 +29,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Design time data for Connections Page
 - Design time data for ConenctionPartialView
 - Default visual studio .gitignore
+- Updated gitignore to ignore Android Resource.designer.cs
+- Image rendering support via Xamarin.FFImageLoading.Forms
+- QR code scanning support via ZXing.Net.Mobile.Forms
+- Added android camera permission
+- Added baseline button styles
+- Add the ability to navigate to pages without a bound VM to the navigation service
+- AcceptInvite Page with design time data
+- AcceptInviteViewModel with required functionality to interact with connections and invites
+- Exposed the required properties to render connections in the ConnectionsViewModel
+- Bound connections to connection records from the wallet
 
 [Unreleased]: https://bitbucket.org/sparkchain/poc-mobile-app/compare/HEAD..13ad5882e4c9a526a27cde19270bcbc56c1d53fa

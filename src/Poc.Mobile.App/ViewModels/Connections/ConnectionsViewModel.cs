@@ -1,14 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using Autofac;
 using Poc.Mobile.App.Extensions;
+using Poc.Mobile.App.Services;
 using Poc.Mobile.App.Services.Interfaces;
+using Poc.Mobile.App.Services.Utils;
 using ReactiveUI;
 using Streetcred.Sdk.Contracts;
+using Streetcred.Sdk.Messages.Connections;
 using Xamarin.Forms;
+using ZXing.Net.Mobile.Forms;
 
 namespace Poc.Mobile.App.ViewModels.Connections
 {
@@ -59,8 +64,42 @@ namespace Poc.Mobile.App.ViewModels.Connections
             RefreshingConnections = false;
         }
 
+        public async Task ScanInvite()
+        {
+            var expectedFormat = ZXing.BarcodeFormat.QR_CODE;
+            var opts = new ZXing.Mobile.MobileBarcodeScanningOptions{ PossibleFormats = new List<ZXing.BarcodeFormat> { expectedFormat }};
+
+            var scannerPage = new ZXingScannerPage(opts);
+            scannerPage.OnScanResult += (result) => {
+                scannerPage.IsScanning = false;
+
+                ConnectionInvitationMessage invitation;
+
+                try
+                {
+                    invitation = InvitationUtils.DecodeInvite(result.Text);
+                }
+                catch (Exception)
+                {
+                    DialogService.Alert("Invalid invitation!");
+                    Device.BeginInvokeOnMainThread(async () => await NavigationService.PopModalAsync());
+                    return;
+                }
+
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await NavigationService.PopModalAsync();
+                    await NavigationService.NavigateToAsync<AcceptInviteViewModel>(invitation, NavigationType.Modal);
+                });
+            };
+
+            await NavigationService.NavigateToAsync((Page)scannerPage, NavigationType.Modal);
+        }
+
         #region Bindable Command
         public ICommand RefreshCommand => new Command(async () => await RefreshConnections());
+
+        public ICommand ScanInviteCommand => new Command(async () => await ScanInvite());
         #endregion
 
         #region Bindable Properties

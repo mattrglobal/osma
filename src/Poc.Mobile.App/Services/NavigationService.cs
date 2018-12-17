@@ -11,6 +11,12 @@ using Xamarin.Forms;
 
 namespace Poc.Mobile.App.Services
 {
+    public enum NavigationType
+    {
+        Normal,
+        Modal
+    }
+
     public class NavigationService : INavigationService
     {
         private readonly ILifetimeScope _scope;
@@ -110,21 +116,27 @@ namespace Poc.Mobile.App.Services
             return true;
         }
 
-        public Task NavigateToAsync<TViewModel>(TViewModel viewModel) where TViewModel : IABaseViewModel => InternalNavigateToAsync(typeof(TViewModel), viewModel, null);
+        public Task NavigateToAsync<TViewModel>(TViewModel viewModel, object parameter = null, NavigationType type = NavigationType.Normal) where TViewModel : IABaseViewModel => InternalNavigateToAsync(typeof(TViewModel), type, viewModel, null);
+        
+        public Task NavigateToAsync<TViewModel>(object parameter, NavigationType type = NavigationType.Normal) where TViewModel : IABaseViewModel => InternalNavigateToAsync(typeof(TViewModel), type, null, parameter);
+        
+        public async Task NavigateToAsync(Page page, NavigationType type = NavigationType.Normal)
+        {
+            var mainPage = CurrentApplication.MainPage;
 
-        public Task NavigateToAsync<TViewModel>() where TViewModel : IABaseViewModel => InternalNavigateToAsync(typeof(TViewModel), null, null);
-
-        public Task NavigateToAsync<TViewModel>(object parameter) where TViewModel : IABaseViewModel => InternalNavigateToAsync(typeof(TViewModel), null, parameter);
-
-        public Task NavigateToAsync(Type viewModelType) => InternalNavigateToAsync(viewModelType, null, null);
-
-        public Task NavigateToAsync(Type viewModelType, object parameter) => InternalNavigateToAsync(viewModelType, null, parameter);
+            if (type == NavigationType.Modal)
+                await mainPage.Navigation.PushModalAsync(page);
+            else
+                await mainPage.Navigation.PushAsync(page);
+        }
 
         public async Task NavigateBackAsync()
         {
             if (CurrentApplication.MainPage != null)
                 await CurrentApplication.MainPage.Navigation.PopAsync();
         }
+
+        public async Task PopModalAsync() => await CurrentApplication.MainPage.Navigation.PopModalAsync();
 
         public Type GetCurrentPageViewModel()
         {
@@ -178,31 +190,23 @@ namespace Poc.Mobile.App.Services
 
         public async Task CloseAllPopupsAsync() => await PopupNavigation.PopAllAsync(true);
 
-        protected virtual async Task InternalNavigateToAsync(Type viewModelType, object viewModel, object parameter)
+        protected virtual async Task InternalNavigateToAsync(Type viewModelType, NavigationType type, object viewModel, object parameter)
         {
             Page page = CreateAndBindPage(viewModelType, viewModel, parameter, false);
 
-            if (page is IRootView)
+            if (type == NavigationType.Modal)
+                    await CurrentApplication.MainPage.Navigation.PushModalAsync(page);
+            else
             {
-                //TODO prob need to check the navigation stack at this point to ensure there are no pages on top??
-                if (page is IMainView)
-                {
-                    object bindingContext = page.BindingContext;
-                    page = new NavigationPage(page);
-                    page.BindingContext = bindingContext;
-                }
-
-                CurrentApplication.MainPage = page;
-            }
-            else if (CurrentApplication.MainPage is IMainView || CurrentApplication.MainPage is NavigationPage) // Implemented as an interface so we can have different main views on different platforms
-            {
-                var mainPage = CurrentApplication.MainPage as Page;
-
-                if (mainPage.GetType() != page.GetType())
-                    await mainPage.Navigation.PushAsync(page);
+                if (page is IRootView)
+                    CurrentApplication.MainPage = page;
+                else if (CurrentApplication.MainPage is NavigationPage navPage)
+                    await navPage.Navigation.PushAsync(page);
+                //TODO OS-194 else throw exception as the page and Navigation type combination isnt valid
             }
 
-            await (page.BindingContext as IABaseViewModel).InitializeAsync(parameter);
+            if (page.BindingContext is IABaseViewModel vm)
+                await vm.InitializeAsync(parameter);
         }
 
         protected Type GetPageTypeForViewModel(Type viewModelType, bool isPopup)
@@ -212,7 +216,7 @@ namespace Poc.Mobile.App.Services
 
             if (pageType == null)
                 throw new KeyNotFoundException($"No map for ${viewModelType} was found on navigation mappings");
-
+            
             return pageType;
         }
 
@@ -223,6 +227,7 @@ namespace Poc.Mobile.App.Services
             if (pageType == null)
                 throw new Exception($"Mapping type for {viewModelType} is not a page");
 
+            //TODO OS-195 throw an exception if this resolution was null i.e the bound type is not of type Page
             Page page = _scope.Resolve(pageType) as Page;
             
             IABaseViewModel viewModel;
