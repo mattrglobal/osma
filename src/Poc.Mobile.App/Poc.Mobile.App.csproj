@@ -5,6 +5,16 @@
     <Configurations>Debug;Release;Gorilla</Configurations>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Gorilla|AnyCPU' ">
+    <DebugType></DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Gorilla</OutputPath>
+    <DefineConstants></DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <IntermediateOutputPath>obj\Gorilla</IntermediateOutputPath>
+    <NoWarn></NoWarn>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.0.1" />
     <PackageReference Include="Autofac" Version="4.8.1" />
@@ -36,5 +46,10 @@
     <EmbeddedResource Update="Views\RegisterPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Views\Controls\Card.xaml.cs" />
+    <Compile Remove="Effects\ViewShadowEffect.cs" />
+    <Compile Remove="Views\Connections\ConnectionTransactionCell.cs" />
   </ItemGroup>
 </Project>

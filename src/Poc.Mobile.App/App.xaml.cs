@@ -7,61 +7,63 @@ using Poc.Mobile.App.ViewModels.Connections;
 using Poc.Mobile.App.Views;
 using Poc.Mobile.App.Views.Connections;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 using MainPage = Poc.Mobile.App.Views.MainPage;
 
-[assembly: XamlCompilation (XamlCompilationOptions.Compile)]
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Poc.Mobile.App
 {
-	public partial class App : Application
-	{
-	    public new static App Current => Application.Current as App;
-	    public Palette Colors;
+    public partial class App : Application
+    {
+        public new static App Current => Application.Current as App;
+        public Palette Colors;
 
         private readonly INavigationService _navigationService;
-	    private readonly IAgentContextService _contextService;
+        private readonly IAgentContextService _contextService;
 
-        public App (IContainer container)
-		{
-			InitializeComponent();
+        public App(IContainer container)
+        {
+            InitializeComponent();
 
             Colors.Init();
+            _navigationService = container.Resolve<INavigationService>();
+            _contextService = container.Resolve<IAgentContextService>();
 
-	        _navigationService = container.Resolve<INavigationService>();
-		    _contextService = container.Resolve<IAgentContextService>();
-
-		    InitializeTask = Initialize();
+            InitializeTask = Initialize();
         }
 
-	    public Task InitializeTask;
+        Task InitializeTask;
         private async Task Initialize()
-	    {
-	        //Pages
+        {
+            //Pages
             _navigationService.AddPageViewModelBinding<MainViewModel, MainPage>();
-	        _navigationService.AddPageViewModelBinding<ConnectionsViewModel, ConnectionsPage>();
+            _navigationService.AddPageViewModelBinding<ConnectionsViewModel, ConnectionsPage>();
+            _navigationService.AddPageViewModelBinding<ConnectionViewModel, ConnectionPage>();
             _navigationService.AddPageViewModelBinding<RegisterViewModel, RegisterPage>();
-	        _navigationService.AddPageViewModelBinding<AcceptInviteViewModel, AcceptInvitePage>();
-
+            _navigationService.AddPageViewModelBinding<AcceptInviteViewModel, AcceptInvitePage>();
             if (_contextService.AgentExists())
-	            await _navigationService.NavigateToAsync<MainViewModel>();
-	        else
-	            await _navigationService.NavigateToAsync<RegisterViewModel>();
-	    }
+            {
+                await _navigationService.NavigateToAsync<MainViewModel>();
+            }
+            else
+            {
+                await _navigationService.NavigateToAsync<RegisterViewModel>();
+            }
+        }
 
-        protected override void OnStart ()
-		{
-			// Handle when your app starts
-		}
+        protected override void OnStart()
+        {
+            // Handle when your app starts
+        }
 
-		protected override void OnSleep ()
-		{
-			// Handle when your app sleeps
-		}
+        protected override void OnSleep()
+        {
+            // Handle when your app sleeps
+        }
 
-		protected override void OnResume ()
-		{
-			// Handle when your app resumes
-		}
-	}
+        protected override void OnResume()
+        {
+            // Handle when your app resumes
+        }
+    }
 }

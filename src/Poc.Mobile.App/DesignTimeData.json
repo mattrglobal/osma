@@ -26,7 +26,7 @@
     "ConnectionImageUrl": "https://pbs.twimg.com/profile_images/899211256480940032/8XD4jxu1_400x400.jpg"
   },
   "Views\\Connections\\ConnectionsPage.xaml": {
-    "HasConnections": false,
+    "HasConnections": true,
     "Name": "Connections",
     "RefreshingConnections": false,
     "Connections": [
@@ -51,5 +51,26 @@
     "InviteTitle": "Trust Spark NZ?",
     "InviteContents": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
     "InviterUrl": "https://pbs.twimg.com/profile_images/899211256480940032/8XD4jxu1_400x400.jpg"
+  },
+  "Views\\Connections\\ConnectionPage.xaml": {
+    "ConnectionName": "Spark",
+    "ConnectionSubtitle": "Test subtitle",
+    "ConnectionImageUrl": "https://pbs.twimg.com/profile_images/899211256480940032/8XD4jxu1_400x400.jpg",
+    "MyDid": "myldsjfhkasdjfasd",
+    "TheirDid": "theirsksdjfndsjkanfsdaf",
+    "Transactions":  [
+      {
+        "Type": "Actionable",
+        "Datetime":  "05 May 2018 | 5:35pm",
+        "Title":  "Example actionable",
+        "Subtitle":  "Example Subtitle"
+      },
+      {
+        "Type": "Status",
+        "Datetime": "05 May 2018 | 5:35pm",
+        "Title": "Example status",
+        "Subtitle": "Example Subtitle"
+      }
+    ]
   }
 }

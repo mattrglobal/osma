@@ -9,6 +9,6 @@ namespace Poc.Mobile.App.Views.Connections
 		public ConnectionsPage ()
 		{
 			InitializeComponent ();
-		}
-	}
+        }
+    }
 }

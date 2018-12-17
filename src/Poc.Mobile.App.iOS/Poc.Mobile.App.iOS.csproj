@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -24,7 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>x86_64</MtouchArch>
+    <MtouchArch>i386, x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
     <MtouchExtraArgs>-gcc_flags -dead_strip -v</MtouchExtraArgs>
@@ -92,12 +92,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Gorilla|iPhoneSimulator'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\iPhoneSimulator\Gorilla\</OutputPath>
-    <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;DEBUG</DefineConstants>
+    <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;DEBUG;GORILLA;</DefineConstants>
     <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <MtouchExtraArgs>-gcc_flags -dead_strip -v</MtouchExtraArgs>
+    <MtouchLink>None</MtouchLink>
+    <MtouchArch>i386, x86_64</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Gorilla|iPhone'">
     <DebugSymbols>true</DebugSymbols>
@@ -116,55 +118,6 @@
     <None Include="Info.plist" />
     <Compile Include="PlatformModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="libs\libcrypto.a" />
-    <None Include="libs\libindy.a" />
-    <None Include="libs\libsodium.a" />
-    <None Include="libs\libssl.a" />
-    <None Include="libs\libzmq.a" />
-  </ItemGroup>
-  <ItemGroup>
-    <NativeReference Include="libs\libcrypto.a">
-      <Kind>Static</Kind>
-      <SmartLink>False</SmartLink>
-    </NativeReference>
-    <NativeReference Include="libs\libindy.a">
-      <Kind>Static</Kind>
-      <SmartLink>False</SmartLink>
-    </NativeReference>
-    <NativeReference Include="libs\libsodium.a">
-      <Kind>Static</Kind>
-      <SmartLink>False</SmartLink>
-    </NativeReference>
-    <NativeReference Include="libs\libssl.a">
-      <Kind>Static</Kind>
-      <SmartLink>False</SmartLink>
-      <IsCxx>True</IsCxx>
-    </NativeReference>
-    <NativeReference Include="libs\libzmq.a">
-      <Kind>Static</Kind>
-      <SmartLink>False</SmartLink>
-    </NativeReference>
-    <NativeReference Include="libs\libcrypto.a">
-      <Kind>Static</Kind>
-      <SmartLink>False</SmartLink>
-    </NativeReference>
-    <NativeReference Include="libs\libindy.a">
-      <Kind>Static</Kind>
-      <SmartLink>False</SmartLink>
-    </NativeReference>
-    <NativeReference Include="libs\libsodium.a">
-      <Kind>Static</Kind>
-      <SmartLink>False</SmartLink>
-    </NativeReference>
-    <NativeReference Include="libs\libssl.a">
-      <Kind>Static</Kind>
-      <SmartLink>False</SmartLink>
-    </NativeReference>
-    <NativeReference Include="libs\libzmq.a">
-      <Kind>Static</Kind>
-      <SmartLink>False</SmartLink>
-      <IsCxx>True</IsCxx>
-    </NativeReference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon1024.png">
@@ -213,12 +166,40 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\connection_icon.imageset\connection_icon%402x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\connection_icon.imageset\connection_icon%403x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\connection_icon.imageset\connection_icon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\connection_icon.imageset\connection_icon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\Image.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\back_icon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\back_icon.imageset\baseline_arrow_back_ios_black_48pt_1x.png" />
+    <ImageAsset Include="Assets.xcassets\back_icon.imageset\baseline_arrow_back_ios_black_48pt_2x.png" />
+    <ImageAsset Include="Assets.xcassets\back_icon.imageset\baseline_arrow_back_ios_black_48pt_3x.png" />
+    <ImageAsset Include="Assets.xcassets\more_icon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\more_icon.imageset\baseline_more_vert_black_48pt_1x.png" />
+    <ImageAsset Include="Assets.xcassets\more_icon.imageset\baseline_more_vert_black_48pt_2x.png" />
+    <ImageAsset Include="Assets.xcassets\more_icon.imageset\baseline_more_vert_black_48pt_3x.png" />
+  </ItemGroup>
+      <ItemGroup>
+    <NativeReference Include="libs\libcrypto.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+    </NativeReference>
+    <NativeReference Include="libs\libsodium.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+    </NativeReference>
+    <NativeReference Include="libs\libssl.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+    </NativeReference>
+    <NativeReference Include="libs\libzmq.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <IsCxx>True</IsCxx>
+    </NativeReference>
+    <NativeReference Include="libs\libindy.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+    </NativeReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -251,5 +232,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="libs\" />
+    <Folder Include="Assets.xcassets\back_icon.imageset\" />
+    <Folder Include="Assets.xcassets\more_icon.imageset\" />
   </ItemGroup>
 </Project>

@@ -10,5 +10,6 @@ namespace Poc.Mobile.App.Views
 		{
 			InitializeComponent ();
 		}
-	}
+    }
 }
+

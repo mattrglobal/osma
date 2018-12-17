@@ -27,3 +27,64 @@ Any other advanced settings associated to Gorilla Player and this app can be con
 
 ## LFS
 [Git LFS](https://git-lfs.github.com/) is an extension and specification for managing large files with Git. With Git LFS installed, pushing and pulling should work as normal.
+
+
+## Structure & Naming of XAML
+
+### Pages
+#### Format
+`{Name}Page`
+
+#### Example
+`ExamplePage`
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage>
+    <ContentPage.Content>
+        <Label Text="A lovely page" />
+    </ContentPage.Content>
+</ContentPage>
+```
+
+### ItemView
+
+ Item views are reusable blocks. Used most commonly in ListViews.
+ Context is shared with their parent.
+
+#### Format
+`{Name}ItemView`
+
+Using `ExampleItemView.xaml` in a `ListView`
+```xml
+<ListView ItemsSource="{Binding ItemsSource}">
+    <ListView.ItemTemplate>
+        <DataTemplate>
+            <ViewCell>
+                <views:ExampleItemView/>  <!-- Current context shared -->
+            </ViewCell>
+        </DataTemplate>
+    </ListView.ItemTemplate>
+</ListView>
+```
+`ExampleItemView.xaml`
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView>
+  <ContentView.Content>
+      <Label Text="{Binding ItemText}" />
+    </ContentView.Content>
+</ContentView>
+```
+
+### Controls
+
+Controls are reusable components that are used across multiple views, they do not directly look at context.
+
+#### Format
+
+`{Name}Control`
+
+#### Example
+```xml
+<ExampleControl ExampleAttribute="Test"/>
+```

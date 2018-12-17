@@ -39,5 +39,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - AcceptInviteViewModel with required functionality to interact with connections and invites
 - Exposed the required properties to render connections in the ConnectionsViewModel
 - Bound connections to connection records from the wallet
+- Add button on connections toolbar
+- Connections transaction templates
+- Connections template selector
+- Connection/s icons
+- Add vimm swp files to .gitignore
 
 [Unreleased]: https://bitbucket.org/sparkchain/poc-mobile-app/compare/HEAD..13ad5882e4c9a526a27cde19270bcbc56c1d53fa

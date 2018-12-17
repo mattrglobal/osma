@@ -41,13 +41,28 @@ namespace Poc.Mobile.App.ViewModels.Connections
             await base.InitializeAsync(navigationData);
         }
 
+
         public async Task RefreshConnections()
         {
             RefreshingConnections = true;
 
             var context = await _agentContextService.GetContextAsync();
-
             var records = await _connectionService.ListAsync(context.Wallet);
+
+            #if DEBUG
+            var exampleRecord = new Streetcred.Sdk.Models.Records.ConnectionRecord
+            {
+                ConnectionId = Guid.NewGuid().ToString().ToLowerInvariant(),
+                Alias = new Streetcred.Sdk.Models.Connections.ConnectionAlias {
+                    Name = "Example Connection",
+                    ImageUrl = "https://placehold.it/300x300"
+                },
+                MyDid = "sov:7N2DqXEPRG7wbqJvJL3diU",
+                State = Streetcred.Sdk.Models.Records.ConnectionState.Connected,
+                TheirDid = "sov:KNWvuaPtWtL8fgaArBeKr1",
+            };
+            records.Add(exampleRecord);
+            #endif
 
             IList<ConnectionViewModel> connectionVms = new List<ConnectionViewModel>();
             foreach (var record in records)
@@ -55,6 +70,7 @@ namespace Poc.Mobile.App.ViewModels.Connections
                 var connection = _scope.Resolve<ConnectionViewModel>(new NamedParameter("record", record));
                 connectionVms.Add(connection);
             }
+
 
             //TODO need to compare with the currently displayed connections rather than disposing all of them
             Connections.Clear();
@@ -96,10 +112,18 @@ namespace Poc.Mobile.App.ViewModels.Connections
             await NavigationService.NavigateToAsync((Page)scannerPage, NavigationType.Modal);
         }
 
+        public async Task SelectConnection(ConnectionViewModel connection) => await NavigationService.NavigateToAsync(connection, null, NavigationType.Modal);
+
         #region Bindable Command
         public ICommand RefreshCommand => new Command(async () => await RefreshConnections());
 
         public ICommand ScanInviteCommand => new Command(async () => await ScanInvite());
+
+        public ICommand SelectConnectionCommand => new Command<ConnectionViewModel>(async (connection) =>
+        {
+            if (connection != null)
+                await SelectConnection(connection);
+        });
         #endregion
 
         #region Bindable Properties
