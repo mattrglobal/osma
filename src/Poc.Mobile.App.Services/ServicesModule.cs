@@ -1,5 +1,5 @@
-﻿using Autofac;
-using Streetcred.Sdk.Runtime;
+﻿using AgentFramework.Core.Runtime;
+using Autofac;
 
 namespace Poc.Mobile.App.Services
 {

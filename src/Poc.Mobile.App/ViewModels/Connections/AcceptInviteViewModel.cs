@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
+using AgentFramework.Core.Contracts;
+using AgentFramework.Core.Messages.Connections;
 using Poc.Mobile.App.Services.Interfaces;
 using ReactiveUI;
-using Streetcred.Sdk.Contracts;
-using Streetcred.Sdk.Messages.Connections;
 using Xamarin.Forms;
 
 namespace Poc.Mobile.App.ViewModels.Connections

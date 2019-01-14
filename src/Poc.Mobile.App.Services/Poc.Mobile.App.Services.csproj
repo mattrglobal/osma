@@ -17,8 +17,8 @@
     <NoStdLib>false</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AgentFramework.Core" Version="1.1.0-ci-309" />
     <PackageReference Include="Autofac" Version="4.8.1" />
-    <PackageReference Include="Streetcred.Sdk" Version="1.1.0-ci-20181115.1" />
   </ItemGroup>
 
 </Project>

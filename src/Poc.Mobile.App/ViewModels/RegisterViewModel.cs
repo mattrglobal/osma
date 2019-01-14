@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
 using Acr.UserDialogs;
+using AgentFramework.Core.Models.Wallets;
 using Poc.Mobile.App.Services.Interfaces;
 using Poc.Mobile.App.Services.Models;
-using Streetcred.Sdk.Models.Wallets;
 using Xamarin.Forms;
 
 namespace Poc.Mobile.App.ViewModels

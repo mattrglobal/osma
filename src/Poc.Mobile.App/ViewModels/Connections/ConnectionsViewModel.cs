@@ -4,14 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
+using AgentFramework.Core.Contracts;
+using AgentFramework.Core.Messages.Connections;
 using Autofac;
 using Poc.Mobile.App.Extensions;
 using Poc.Mobile.App.Services;
 using Poc.Mobile.App.Services.Interfaces;
 using Poc.Mobile.App.Services.Utils;
 using ReactiveUI;
-using Streetcred.Sdk.Contracts;
-using Streetcred.Sdk.Messages.Connections;
 using Xamarin.Forms;
 using ZXing.Net.Mobile.Forms;
 
@@ -50,15 +50,15 @@ namespace Poc.Mobile.App.ViewModels.Connections
             var records = await _connectionService.ListAsync(context.Wallet);
 
             #if DEBUG
-            var exampleRecord = new Streetcred.Sdk.Models.Records.ConnectionRecord
+            var exampleRecord = new AgentFramework.Core.Models.Records.ConnectionRecord
             {
-                ConnectionId = Guid.NewGuid().ToString().ToLowerInvariant(),
-                Alias = new Streetcred.Sdk.Models.Connections.ConnectionAlias {
+                Id = Guid.NewGuid().ToString().ToLowerInvariant(),
+                Alias = new AgentFramework.Core.Models.Connections.ConnectionAlias {
                     Name = "Example Connection",
                     ImageUrl = "https://placehold.it/300x300"
                 },
                 MyDid = "sov:7N2DqXEPRG7wbqJvJL3diU",
-                State = Streetcred.Sdk.Models.Records.ConnectionState.Connected,
+                State = AgentFramework.Core.Models.Records.ConnectionState.Connected,
                 TheirDid = "sov:KNWvuaPtWtL8fgaArBeKr1",
             };
             records.Add(exampleRecord);

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AgentFramework.Core.Contracts;
+using AgentFramework.Core.Models.Wallets;
 using Poc.Mobile.App.Services.Interfaces;
 using Poc.Mobile.App.Services.Models;
-using Streetcred.Sdk.Contracts;
-using Streetcred.Sdk.Models.Wallets;
 
 namespace Poc.Mobile.App.Services
 {

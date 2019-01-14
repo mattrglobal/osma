@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Text;
+using AgentFramework.Core.Messages.Connections;
 using Newtonsoft.Json;
-using Streetcred.Sdk.Messages.Connections;
 
 namespace Poc.Mobile.App.Services.Utils
 {

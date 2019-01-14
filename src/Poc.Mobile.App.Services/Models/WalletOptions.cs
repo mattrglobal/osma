@@ -1,4 +1,4 @@
-﻿using Streetcred.Sdk.Models.Wallets;
+﻿using AgentFramework.Core.Models.Wallets;
 
 namespace Poc.Mobile.App.Services.Models
 {
