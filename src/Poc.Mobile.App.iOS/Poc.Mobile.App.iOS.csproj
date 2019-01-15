@@ -166,6 +166,20 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\connection_icon.imageset\connection_icon%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\connection_icon.imageset\connection_icon%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\credentials_icon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\keyboard_down_icon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\keyboard_down_icon.imageset\outline_keyboard_arrow_down_black_24pt_1x.png" />
+    <ImageAsset Include="Assets.xcassets\keyboard_down_icon.imageset\outline_keyboard_arrow_down_black_24pt_2x.png" />
+    <ImageAsset Include="Assets.xcassets\keyboard_down_icon.imageset\outline_keyboard_arrow_down_black_24pt_3x.png" />
+    <ImageAsset Include="Assets.xcassets\credentials_icon.imageset\outline_verified_user_white_24pt_1x.png" />
+    <ImageAsset Include="Assets.xcassets\credentials_icon.imageset\outline_verified_user_white_24pt_2x.png" />
+    <ImageAsset Include="Assets.xcassets\credentials_icon.imageset\outline_verified_user_white_24pt_3x.png" />
     <ImageAsset Include="Assets.xcassets\connection_icon.imageset\connection_icon%402x.png" />
     <ImageAsset Include="Assets.xcassets\connection_icon.imageset\connection_icon%403x.png" />
     <ImageAsset Include="Assets.xcassets\Image.imageset\Contents.json" />
@@ -218,6 +232,9 @@
     <PackageReference Include="ZXing.Net.Mobile.Forms">
       <Version>2.4.1</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations">
+      <Version>2.4.4.859</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -232,7 +249,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="libs\" />
-    <Folder Include="Assets.xcassets\back_icon.imageset\" />
-    <Folder Include="Assets.xcassets\more_icon.imageset\" />
+    <Folder Include="Assets.xcassets\credentials_icon.imageset\" />
+    <Folder Include="Assets.xcassets\keyboard_down_icon.imageset\" />
   </ItemGroup>
 </Project>

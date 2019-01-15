@@ -10,6 +10,7 @@ using Poc.Mobile.App.Extensions;
 using Poc.Mobile.App.Services.Interfaces;
 using Poc.Mobile.App.Views.Connections;
 using ReactiveUI;
+using Streetcred.Sdk.Models.Records;
 using Xamarin.Forms;
 
 namespace Poc.Mobile.App.ViewModels.Connections
@@ -43,7 +44,7 @@ namespace Poc.Mobile.App.ViewModels.Connections
         {
             RefreshingTransactions = true;
 
-            // TODO Get the transactions
+            // TODO OS-201 Get the transactions
             IList<TransactionItem> transactions = new List<TransactionItem>();
 
             #if DEBUG

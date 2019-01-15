@@ -5,15 +5,16 @@
     <Configurations>Debug;Release;Gorilla</Configurations>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Gorilla|AnyCPU' ">
+    <IntermediateOutputPath>obj\Gorilla</IntermediateOutputPath>
     <DebugType></DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Gorilla</OutputPath>
     <DefineConstants></DefineConstants>
-    <WarningLevel>4</WarningLevel>
-    <NoStdLib>true</NoStdLib>
-    <IntermediateOutputPath>obj\Gorilla</IntermediateOutputPath>
     <NoWarn></NoWarn>
+    <NoStdLib>false</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.0.1" />
@@ -24,6 +25,7 @@
     <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
     <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
     <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.4.859" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,5 +53,21 @@
     <Compile Remove="Views\Controls\Card.xaml.cs" />
     <Compile Remove="Effects\ViewShadowEffect.cs" />
     <Compile Remove="Views\Connections\ConnectionTransactionCell.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Credentials\" />
+    <Folder Include="ViewModels\Credentials\" />
+    <Folder Include="Views\Components\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\Credentials\Credentials.xaml.cs">
+      <DependentUpon>CredentialsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Credentials\CredentialsPage.xaml.cs">
+      <DependentUpon>CredentialsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Components\DetailedCell.xaml.cs">
+      <DependentUpon>DetailedCell.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

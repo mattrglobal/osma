@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:connections="clr-namespace:Poc.Mobile.App.Views.Connections;assembly=Poc.Mobile.App"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             x:Class="Poc.Mobile.App.Views.MainPage"
-            >
+<TabbedPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:connections="clr-namespace:Poc.Mobile.App.Views.Connections;assembly=Poc.Mobile.App"
+    xmlns:credentials="clr-namespace:Poc.Mobile.App.Views.Credentials;assembly=Poc.Mobile.App"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    x:Class="Poc.Mobile.App.Views.MainPage"
+>
     <NavigationPage
         Title="Connections"
         Icon="connection_icon.png"
@@ -12,6 +14,15 @@
     >
         <x:Arguments>
             <connections:ConnectionsPage BindingContext="{Binding Connections}"/>
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage
+        Icon="credentials_icon.png"
+        Title="Credentials"
+        ios:NavigationPage.PrefersLargeTitles="true"
+    >
+        <x:Arguments>
+            <credentials:CredentialsPage BindingContext="{Binding Credentials}"/>
         </x:Arguments>
     </NavigationPage>
 </TabbedPage>

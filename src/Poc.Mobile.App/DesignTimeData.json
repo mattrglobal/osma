@@ -72,5 +72,60 @@
         "Subtitle": "Example Subtitle"
       }
     ]
+  },
+  "Views\\Connections\\AcceptInvitePage.xaml": {
+    "InviteTitle": "Trust Spark NZ?",
+    "InviteContents": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    "InviterUrl": "https://pbs.twimg.com/profile_images/899211256480940032/8XD4jxu1_400x400.jpg"
+  },
+  "Views\\Credentials\\CredentialPage.xaml": {
+    "CredentialImageUrl": "https://pbs.twimg.com/profile_images/899211256480940032/8XD4jxu1_400x400.jpg",
+    "CredentialTitle":  "CredentialTitle",
+    "CredentialSubtitle": "CredentialSubtitle",
+    "QRImageUrl": "http://placehold.it/100x100",
+    "Attributes": [
+        {
+            "Type":  "Text",
+            "Name": "First Name",
+            "Value": "Dale"
+        },
+        {
+            "Type": "Text",
+            "Name": "Last Name",
+            "Value": "Jones"
+        },
+        {
+            "Type": "Text",
+            "Name": "My CUID Number",
+            "Value": "923847-23984750-22"
+        },
+        {
+            "Type": "Text",
+            "Name": "Address 1",
+            "Value": "23498 South Meridian"
+        },
+        {
+            "Type": "Text",
+            "Name": "City",
+            "Value": "Seattle"
+        },
+        {
+            "Type": "Text",
+            "Name": "State",
+            "Value": "Washington"
+        },
+        {
+            "Type": "Text",
+            "Name": "Zip",
+            "Value": "98322"
+        },
+        {
+            "Type": "File",
+            "Name": "Documents & Files",
+            "FileExt": "PDF",
+            "Value": "Value",
+            "Date":  "05 AUG 2018"
+        }
+    ]
   }
 }

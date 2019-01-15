@@ -44,5 +44,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Connections template selector
 - Connection/s icons
 - Add vimm swp files to .gitignore
+- Credentials Page
+- Credential Page
+- Load example credential in DEBUG
+- Register Services module iOS AppDelegate
+
 
 [Unreleased]: https://bitbucket.org/sparkchain/poc-mobile-app/compare/HEAD..13ad5882e4c9a526a27cde19270bcbc56c1d53fa

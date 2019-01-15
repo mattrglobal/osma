@@ -94,11 +94,13 @@
     <PackageReference Include="ZXing.Net.Mobile.Forms">
       <Version>2.4.1</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations">
+      <Version>2.4.4.859</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
     <Compile Include="PlatformModule.cs" />
-    <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +128,16 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
     <AndroidResource Include="Resources\drawable\back_icon.png" />
     <AndroidResource Include="Resources\drawable\more_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\credentials_icon.png" />
+    <AndroidResource Include="Resources\drawable\credentials_icon.xml" />
+    <AndroidResource Include="Resources\drawable-xhdpi\credentials_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\credentials_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\credentials_icon.png" />
+    <AndroidResource Include="Resources\drawable\keyboard_down_icon.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\keyboard_down_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\keyboard_down_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\keyboard_down_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\keyboard_down_icon.png" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -2,6 +2,7 @@
 using FFImageLoading.Forms.Platform;
 using Foundation;
 using Poc.Mobile.App.Converters;
+using Poc.Mobile.App.Services;
 using UIKit;
 
 namespace Poc.Mobile.App.iOS
@@ -27,19 +28,23 @@ namespace Poc.Mobile.App.iOS
             CachedImageRenderer.Init();
 
 #if GORILLA
+
             LoadApplication(UXDivers.Gorilla.iOS.Player.CreateApplication(
                 new UXDivers.Gorilla.Config("Good Gorilla")
-                    .RegisterAssemblyFromType<InverseBooleanConverter>()));
+                    .RegisterAssemblyFromType<InverseBooleanConverter>()
+                    .RegisterAssemblyFromType<FFImageLoading.Transformations.CircleTransformation>()
+                    .RegisterAssemblyFromType<FFImageLoading.Forms.CachedImage>()
+                ));
 #else
             // Initializing QR Code Scanning support
             ZXing.Net.Mobile.Forms.iOS.Platform.Init();
 
             var builder = new ContainerBuilder();
             builder.RegisterModule(new PlatformModule());
+            builder.RegisterModule(new ServicesModule());
             var container = builder.Build();
             LoadApplication(new App(container));
 #endif
-
             return base.FinishedLaunching(app, options);
         }
     }

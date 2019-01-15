@@ -58,6 +58,19 @@ namespace Poc.Mobile.App.Services
                 .RegisterType<DefaultMessageSerializer>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+
+            builder
+                .RegisterType<DefaultLedgerService>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
+            builder.RegisterType<DefaultSchemaService>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
+            builder.RegisterType<DefaultTailsService>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
     }
 }
