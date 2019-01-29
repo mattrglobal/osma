@@ -52,6 +52,7 @@
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchExtraArgs>-gcc_flags -dead_strip -v</MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -63,6 +64,7 @@
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchLink>None</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
@@ -98,8 +100,10 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <MtouchExtraArgs>-gcc_flags -dead_strip -v</MtouchExtraArgs>
-    <MtouchLink>None</MtouchLink>
-    <MtouchArch>i386, x86_64</MtouchArch>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchArch>x86_64</MtouchArch>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchSdkVersion>12.1</MtouchSdkVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Gorilla|iPhone'">
     <DebugSymbols>true</DebugSymbols>
@@ -110,6 +114,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <MtouchArch>ARM64</MtouchArch>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -118,6 +123,7 @@
     <None Include="Info.plist" />
     <Compile Include="PlatformModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BaseUrl.cs" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon1024.png">
@@ -191,6 +197,34 @@
     <ImageAsset Include="Assets.xcassets\more_icon.imageset\baseline_more_vert_black_48pt_1x.png" />
     <ImageAsset Include="Assets.xcassets\more_icon.imageset\baseline_more_vert_black_48pt_2x.png" />
     <ImageAsset Include="Assets.xcassets\more_icon.imageset\baseline_more_vert_black_48pt_3x.png" />
+    <ImageAsset Include="Assets.xcassets\info_icon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\info_icon.imageset\outline_info_black_24pt_1x.png" />
+    <ImageAsset Include="Assets.xcassets\info_icon.imageset\outline_info_black_24pt_2x.png" />
+    <ImageAsset Include="Assets.xcassets\info_icon.imageset\outline_info_black_24pt_3x.png" />
+    <ImageAsset Include="Assets.xcassets\security_icon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\security_icon.imageset\outline_security_black_24pt_1x.png" />
+    <ImageAsset Include="Assets.xcassets\security_icon.imageset\outline_security_black_24pt_2x.png" />
+    <ImageAsset Include="Assets.xcassets\security_icon.imageset\outline_security_black_24pt_3x.png" />
+    <ImageAsset Include="Assets.xcassets\account_icon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\account_icon.imageset\outline_account_circle_white_24pt_1x.png" />
+    <ImageAsset Include="Assets.xcassets\account_icon.imageset\outline_account_circle_white_24pt_2x.png" />
+    <ImageAsset Include="Assets.xcassets\account_icon.imageset\outline_account_circle_white_24pt_3x.png" />
+    <ImageAsset Include="Assets.xcassets\legal_icon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\legal_icon.imageset\icons8-law-24.png" />
+    <ImageAsset Include="Assets.xcassets\legal_icon.imageset\icons8-law-48.png" />
+    <ImageAsset Include="Assets.xcassets\legal_icon.imageset\icons8-law-72.png" />
+    <ImageAsset Include="Assets.xcassets\code_icon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\code_icon.imageset\outline_code_black_24pt_1x.png" />
+    <ImageAsset Include="Assets.xcassets\code_icon.imageset\outline_code_black_24pt_2x.png" />
+    <ImageAsset Include="Assets.xcassets\code_icon.imageset\outline_code_black_24pt_3x.png" />
+    <ImageAsset Include="Assets.xcassets\save_icon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\save_icon.imageset\outline_save_alt_black_24pt_1x.png" />
+    <ImageAsset Include="Assets.xcassets\save_icon.imageset\outline_save_alt_black_24pt_2x.png" />
+    <ImageAsset Include="Assets.xcassets\save_icon.imageset\outline_save_alt_black_24pt_3x.png" />
+    <ImageAsset Include="Assets.xcassets\camera_icon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\camera_icon.imageset\outline_photo_camera_white_24pt_1x.png" />
+    <ImageAsset Include="Assets.xcassets\camera_icon.imageset\outline_photo_camera_white_24pt_2x.png" />
+    <ImageAsset Include="Assets.xcassets\camera_icon.imageset\outline_photo_camera_white_24pt_3x.png" />
   </ItemGroup>
       <ItemGroup>
     <NativeReference Include="libs\libcrypto.a">
@@ -251,5 +285,13 @@
     <Folder Include="libs\" />
     <Folder Include="Assets.xcassets\credentials_icon.imageset\" />
     <Folder Include="Assets.xcassets\keyboard_down_icon.imageset\" />
+    <Folder Include="Assets.xcassets\info_icon.imageset\" />
+    <Folder Include="Assets.xcassets\security_icon.imageset\" />
+    <Folder Include="Assets.xcassets\account_icon.imageset\" />
+    <Folder Include="Assets.xcassets\legal_icon.imageset\" />
+    <Folder Include="Assets.xcassets\code_icon.imageset\" />
+    <Folder Include="Assets.xcassets\save_icon.imageset\" />
+    <Folder Include="Assets.xcassets\camera_icon.imageset\" />
+    <Folder Include="Assets.xcassets\account_circle_icon.imageset\" />
   </ItemGroup>
 </Project>

@@ -3,9 +3,11 @@ using Autofac;
 using Poc.Mobile.App.Services.Interfaces;
 using Poc.Mobile.App.Utilities;
 using Poc.Mobile.App.ViewModels;
+using Poc.Mobile.App.ViewModels.Account;
 using Poc.Mobile.App.ViewModels.Connections;
 using Poc.Mobile.App.ViewModels.Credentials;
 using Poc.Mobile.App.Views;
+using Poc.Mobile.App.Views.Account;
 using Poc.Mobile.App.Views.Connections;
 using Poc.Mobile.App.Views.Credentials;
 using Xamarin.Forms;
@@ -46,6 +48,7 @@ namespace Poc.Mobile.App
             _navigationService.AddPageViewModelBinding<AcceptInviteViewModel, AcceptInvitePage>();
             _navigationService.AddPageViewModelBinding<CredentialsViewModel, CredentialsPage>();
             _navigationService.AddPageViewModelBinding<CredentialViewModel, CredentialPage>();
+            _navigationService.AddPageViewModelBinding<AccountViewModel, AccountPage>();
 
             if (_contextService.AgentExists())
             {

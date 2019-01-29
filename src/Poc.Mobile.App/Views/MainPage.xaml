@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:connections="clr-namespace:Poc.Mobile.App.Views.Connections;assembly=Poc.Mobile.App"
     xmlns:credentials="clr-namespace:Poc.Mobile.App.Views.Credentials;assembly=Poc.Mobile.App"
+    xmlns:account="clr-namespace:Poc.Mobile.App.Views.Account;assembly=Poc.Mobile.App"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     x:Class="Poc.Mobile.App.Views.MainPage"
 >
@@ -23,6 +24,15 @@
     >
         <x:Arguments>
             <credentials:CredentialsPage BindingContext="{Binding Credentials}"/>
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage
+        Icon="account_icon.png"
+        Title="Account"
+        ios:NavigationPage.PrefersLargeTitles="true"
+    >
+        <x:Arguments>
+            <account:AccountPage BindingContext="{Binding Account}"/>
         </x:Arguments>
     </NavigationPage>
 </TabbedPage>

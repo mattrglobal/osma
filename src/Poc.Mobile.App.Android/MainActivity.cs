@@ -31,6 +31,9 @@ namespace Poc.Mobile.App.Droid
             // Initializing User Dialogs
             UserDialogs.Init(() => (Activity)Forms.Context);
 
+            // Initializing Xamarin Essentials
+            Xamarin.Essentials.Platform.Init(this, bundle);
+
 #if GORILLA
             LoadApplication(UXDivers.Gorilla.Droid.Player.CreateApplication(
                 this,
@@ -89,6 +92,9 @@ namespace Poc.Mobile.App.Droid
                 System.Diagnostics.Debug.WriteLine("All permissions required that werent granted, have now been granted");
             else
                 System.Diagnostics.Debug.WriteLine("Some permissions requested were denied by the user");
+           
+           Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+           base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

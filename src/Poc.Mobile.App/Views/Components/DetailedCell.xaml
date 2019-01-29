@@ -41,6 +41,7 @@
                 x:Name="TitleLabel"
                 Grid.Row="0"
                 Grid.Column="1"
+                Grid.RowSpan="2"
                 VerticalOptions="Center"
                 FontSize="Medium"
             />
@@ -52,7 +53,7 @@
                 FontSize="Small"
             />
             <Frame
-                IsVisible="{Binding IsNew}"
+                IsVisible="false"
                 Grid.Row="0"
                 Grid.RowSpan="2"
                 Grid.Column="2"
@@ -64,7 +65,7 @@
                 HasShadow="false"
             >
                 <Label
-                    IsVisible="{Binding IsNew}"
+                    IsVisible="false"
                     x:Name="NewLabel"
                     VerticalOptions="Center"
                     HorizontalTextAlignment="Center"

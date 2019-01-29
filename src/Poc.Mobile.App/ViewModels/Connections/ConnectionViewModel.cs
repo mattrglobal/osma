@@ -1,16 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using AgentFramework.Core.Models.Records;
-using Autofac;
 using Poc.Mobile.App.Extensions;
 using Poc.Mobile.App.Services.Interfaces;
 using Poc.Mobile.App.Views.Connections;
 using ReactiveUI;
-using Streetcred.Sdk.Models.Records;
 using Xamarin.Forms;
 
 namespace Poc.Mobile.App.ViewModels.Connections
@@ -81,7 +78,7 @@ namespace Poc.Mobile.App.ViewModels.Connections
 
         public ICommand DeleteConnectionCommand => new Command(async () =>
         {
-            // TODO Delete the connection
+            // TODO OS-218 Delete the connection
             await NavigationService.PopModalAsync();
         });
 

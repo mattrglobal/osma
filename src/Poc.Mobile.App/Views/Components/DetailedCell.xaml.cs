@@ -44,6 +44,14 @@ namespace Poc.Mobile.App.Views.Components
             Device.BeginInvokeOnMainThread(() =>
             {
                 cell.SubtitleLabel.Text = newValue.ToString();
+                if (string.IsNullOrWhiteSpace(newValue.ToString()))
+                {
+                    Grid.SetRowSpan(cell.TitleLabel, 2);
+                }
+                else
+                {
+                    Grid.SetRowSpan(cell.TitleLabel, 1);
+                }
             });
         }
 
@@ -82,6 +90,8 @@ namespace Poc.Mobile.App.Views.Components
             bool isNew = (bool)newValue;
             Device.BeginInvokeOnMainThread(() =>
             {
+                cell.NewLabelContainer.IsVisible = isNew;
+                cell.NewLabel.IsVisible = isNew;
                 cell.TitleLabel.FontAttributes = isNew ? FontAttributes.Bold : FontAttributes.None;
                 cell.View.BackgroundColor = isNew ? Color.FromHex("#f2f7ea") : Color.Transparent;
             });

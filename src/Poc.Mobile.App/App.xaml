@@ -5,7 +5,7 @@
     <Application.Resources>
         <ResourceDictionary>
 
-            <Color x:Key="BasePageColor">#FFFFFF</Color>
+            <Color x:Key="BasePageColor">#EFEFF4</Color>
             <Color x:Key="DarkPageColor">#F8F8F8</Color>
             <Color x:Key="BaseContentViewColor">#FFFFFF</Color>
 

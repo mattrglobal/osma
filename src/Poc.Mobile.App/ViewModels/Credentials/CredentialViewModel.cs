@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using Poc.Mobile.App.Services.Interfaces;
 using ReactiveUI;
-using Streetcred.Sdk.Models.Records;
 using Xamarin.Forms;
+using AgentFramework.Core.Models.Records;
 
 namespace Poc.Mobile.App.ViewModels.Credentials
 {

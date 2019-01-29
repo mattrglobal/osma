@@ -73,11 +73,6 @@
       }
     ]
   },
-  "Views\\Connections\\AcceptInvitePage.xaml": {
-    "InviteTitle": "Trust Spark NZ?",
-    "InviteContents": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    "InviterUrl": "https://pbs.twimg.com/profile_images/899211256480940032/8XD4jxu1_400x400.jpg"
-  },
   "Views\\Credentials\\CredentialPage.xaml": {
     "CredentialImageUrl": "https://pbs.twimg.com/profile_images/899211256480940032/8XD4jxu1_400x400.jpg",
     "CredentialTitle":  "CredentialTitle",
@@ -127,5 +122,9 @@
             "Date":  "05 AUG 2018"
         }
     ]
+  },
+  "Views\\Account\\AccountPage.xaml":  {
+    "FullName":  "Jamie Doe",
+    "AvatarUrl": "http://i.pravatar.cc/100",
   }
 }

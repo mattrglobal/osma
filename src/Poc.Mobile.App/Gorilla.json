@@ -1,5 +1,9 @@
 ﻿{
     "navigationPage": {
-      "all": false
+      "all": false,
+      "include": [
+        "Views\\Connections\\ConnectionsPage.xaml",
+        "Views\\Account\\AccountPage.xaml"
+      ]
   }
 }

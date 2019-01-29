@@ -48,6 +48,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Credential Page
 - Load example credential in DEBUG
 - Register Services module iOS AppDelegate
+- Create Detailed Cell component
+- Add Xamarin.Essentials package
+- Add icons for accoount page
+- Create Legal page
+- Create Account page
+- Create AccountMenuButtonView
 
 
 [Unreleased]: https://bitbucket.org/sparkchain/poc-mobile-app/compare/HEAD..13ad5882e4c9a526a27cde19270bcbc56c1d53fa

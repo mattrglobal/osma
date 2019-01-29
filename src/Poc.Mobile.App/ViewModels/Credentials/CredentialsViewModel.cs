@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
+using AgentFramework.Core.Contracts;
+using AgentFramework.Core.Models.Records;
 using Autofac;
-using DynamicData;
-using DynamicData.Binding;
 using Poc.Mobile.App.Extensions;
 using Poc.Mobile.App.Services;
 using Poc.Mobile.App.Services.Interfaces;
 using Poc.Mobile.App.Utilities;
 using ReactiveUI;
-using Streetcred.Sdk.Contracts;
-using Streetcred.Sdk.Models.Records;
 using Xamarin.Forms;
 
 namespace Poc.Mobile.App.ViewModels.Credentials

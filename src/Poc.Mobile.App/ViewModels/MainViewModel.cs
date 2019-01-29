@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Acr.UserDialogs;
 using Poc.Mobile.App.Services.Interfaces;
+using Poc.Mobile.App.ViewModels.Account;
 using Poc.Mobile.App.ViewModels.Connections;
 using Poc.Mobile.App.ViewModels.Credentials;
 using ReactiveUI;
@@ -13,7 +14,8 @@ namespace Poc.Mobile.App.ViewModels
             IUserDialogs userDialogs,
             INavigationService navigationService,
             ConnectionsViewModel connectionsViewModel,
-            CredentialsViewModel credentialsViewModel
+            CredentialsViewModel credentialsViewModel,
+            AccountViewModel accountViewModel
         ) : base(
                 nameof(MainViewModel),
                 userDialogs,
@@ -22,12 +24,14 @@ namespace Poc.Mobile.App.ViewModels
         {
             Connections = connectionsViewModel;
             Credentials = credentialsViewModel;
+            Account = accountViewModel;
         }
 
         public override async Task InitializeAsync(object navigationData)
         {
             await Connections.InitializeAsync(null);
             await Credentials.InitializeAsync(null);
+            await Account.InitializeAsync(null);
             await base.InitializeAsync(navigationData);
         }
 
@@ -44,6 +48,13 @@ namespace Poc.Mobile.App.ViewModels
         {
             get => _credentials;
             set => this.RaiseAndSetIfChanged(ref _credentials, value);
+        }
+
+        private AccountViewModel _account;
+        public AccountViewModel Account
+        {
+            get => _account;
+            set => this.RaiseAndSetIfChanged(ref _account, value);
         }
         #endregion
     }
