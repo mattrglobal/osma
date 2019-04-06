@@ -29,7 +29,7 @@ namespace Poc.Mobile.App.Droid
             CachedImageRenderer.Init(false);
 
             // Initializing User Dialogs
-            UserDialogs.Init(() => (Activity)Forms.Context);
+            UserDialogs.Init(this);
 
             // Initializing Xamarin Essentials
             Xamarin.Essentials.Platform.Init(this, bundle);

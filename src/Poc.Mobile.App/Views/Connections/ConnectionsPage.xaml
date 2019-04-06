@@ -29,8 +29,7 @@
                     RefreshCommand="{Binding RefreshCommand}"
                     IsEnabled="{Binding RefreshingConnections, Converter={StaticResource BooleanInverse}}"
                     ItemsSource="{Binding Connections}"
-                    SeparatorVisibility="None"
-                >
+                    SeparatorVisibility="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

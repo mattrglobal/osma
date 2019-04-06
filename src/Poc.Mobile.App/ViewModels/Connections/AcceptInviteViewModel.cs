@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
@@ -13,25 +14,28 @@ namespace Poc.Mobile.App.ViewModels.Connections
     public class AcceptInviteViewModel : ABaseViewModel
     {
         private readonly IConnectionService _connectionService;
-        private readonly IAgentContextService _contextService;
+        private readonly IMessageService _messageService;
+        private readonly IAgentContextProvider _contextProvider;
 
         private ConnectionInvitationMessage _invite;
 
         public AcceptInviteViewModel(IUserDialogs userDialogs,
                                      INavigationService navigationService,
                                      IConnectionService connectionService,
-                                     IAgentContextService contextService)
+                                     IMessageService messageService,
+                                     IAgentContextProvider contextProvider)
                                      : base("Accept Invitiation", userDialogs, navigationService)
         {
             _connectionService = connectionService;
-            _contextService = contextService;
+            _contextProvider = contextProvider;
+            _messageService = messageService;
         }
 
         public override Task InitializeAsync(object navigationData)
         {
             if (navigationData is ConnectionInvitationMessage invite)
             {
-                InviteTitle = $"Trust {invite.Name}?";
+                InviteTitle = $"Trust {invite.Label}?";
                 InviterUrl = invite.ImageUrl;
                 _invite = invite;
             }
@@ -43,7 +47,7 @@ namespace Poc.Mobile.App.ViewModels.Connections
         {
             var loadingDialog = DialogService.Loading("Processing");
 
-            var context = await _contextService.GetContextAsync();
+            var context = await _contextProvider.GetContextAsync();
 
             if (context == null || _invite == null)
             {
@@ -54,7 +58,8 @@ namespace Poc.Mobile.App.ViewModels.Connections
 
             try
             {
-                await _connectionService.AcceptInvitationAsync(context.Wallet, _invite);
+                var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
+                await _messageService.SendToConnectionAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First());
             }
             catch (Exception) //TODO more granular error protection
             {

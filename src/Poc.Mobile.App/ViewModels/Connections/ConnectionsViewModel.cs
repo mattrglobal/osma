@@ -20,18 +20,18 @@ namespace Poc.Mobile.App.ViewModels.Connections
     public class ConnectionsViewModel : ABaseViewModel
     {
         private readonly IConnectionService _connectionService;
-        private readonly IAgentContextService _agentContextService;
+        private readonly ICustomAgentContextProvider _agentContextProvider;
         private readonly ILifetimeScope _scope;
 
         public ConnectionsViewModel(IUserDialogs userDialogs,
                                     INavigationService navigationService,
                                     IConnectionService connectionService,
-                                    IAgentContextService agentContextService,
+                                    ICustomAgentContextProvider agentContextProvider,
                                     ILifetimeScope scope) :
                                     base("My Connections", userDialogs, navigationService)
         {
             _connectionService = connectionService;
-            _agentContextService = agentContextService;
+            _agentContextProvider = agentContextProvider;
             _scope = scope;
         }
 
@@ -46,8 +46,8 @@ namespace Poc.Mobile.App.ViewModels.Connections
         {
             RefreshingConnections = true;
 
-            var context = await _agentContextService.GetContextAsync();
-            var records = await _connectionService.ListAsync(context.Wallet);
+            var context = await _agentContextProvider.GetContextAsync();
+            var records = await _connectionService.ListAsync(context);
 
             #if DEBUG
             var exampleRecord = new AgentFramework.Core.Models.Records.ConnectionRecord

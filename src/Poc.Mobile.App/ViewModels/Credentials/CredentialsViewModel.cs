@@ -20,14 +20,14 @@ namespace Poc.Mobile.App.ViewModels.Credentials
     public class CredentialsViewModel : ABaseViewModel
     {
         private readonly ICredentialService _credentialService;
-        private readonly IAgentContextService _agentContextService;
+        private readonly ICustomAgentContextProvider _agentContextProvider;
         private readonly ILifetimeScope _scope;
 
         public CredentialsViewModel(
             IUserDialogs userDialogs,
             INavigationService navigationService,
             ICredentialService credentialService,
-            IAgentContextService agentContextService,
+            ICustomAgentContextProvider agentContextProvider,
             ILifetimeScope scope
             ) : base(
                 "Credentials",
@@ -37,7 +37,7 @@ namespace Poc.Mobile.App.ViewModels.Credentials
         {
 
             _credentialService = credentialService;
-            _agentContextService = agentContextService;
+            _agentContextProvider = agentContextProvider;
             _scope = scope;
 
             this.WhenAnyValue(x => x.SearchTerm)
@@ -55,8 +55,8 @@ namespace Poc.Mobile.App.ViewModels.Credentials
         {
             RefreshingCredentials = true;
 
-            var context = await _agentContextService.GetContextAsync();
-            var credentialsRecords = await _credentialService.ListAsync(context.Wallet);
+            var context = await _agentContextProvider.GetContextAsync();
+            var credentialsRecords = await _credentialService.ListAsync(context);
 
 #if DEBUG
             credentialsRecords.Add(new CredentialRecord

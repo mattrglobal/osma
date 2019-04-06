@@ -1,29 +1,25 @@
-﻿using Hyperledger.Indy.PoolApi;
+﻿using System.Collections.Generic;
+using AgentFramework.Core.Contracts;
+using AgentFramework.Core.Models;
+using AgentFramework.Core.Models.Records;
+using Hyperledger.Indy.PoolApi;
 using Hyperledger.Indy.WalletApi;
 
 namespace Poc.Mobile.App.Services
 {
-    /// <summary>
-    /// Agent context.
-    /// </summary>
-    public class AgentContext
+    /// <inheritdoc />
+    public class AgentContext : IAgentContext
     {
-        /// <summary>
-        /// Gets or sets the agent did.
-        /// </summary>
-        /// <value>The agent did.</value>
-        public string Id { get; set; }
+        /// <inheritdoc />
+        public PoolAwaitable Pool { get; set; }
 
-        /// <summary>
-        /// Gets or sets the pool.
-        /// </summary>
-        /// <value>The pool.</value>
-        public Pool Pool { get; set; }
+        /// <inheritdoc />
+        public Dictionary<string, string> State { get; set; }
 
-        /// <summary>
-        /// Gets or sets the wallet.
-        /// </summary>
-        /// <value>The wallet.</value>
+        /// <inheritdoc />
+        public ConnectionRecord Connection { get; set; }
+
+        /// <inheritdoc />
         public Wallet Wallet { get; set; }
         
         /// <summary>

@@ -1,13 +1,15 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using AgentFramework.Core.Contracts;
 using AgentFramework.Core.Models.Wallets;
+using Hyperledger.Indy.WalletApi;
 using Poc.Mobile.App.Services.Interfaces;
 using Poc.Mobile.App.Services.Models;
 
 namespace Poc.Mobile.App.Services
 {
-    public class AgentContextService : IAgentContextService
+    public class AgentContextProvider : ICustomAgentContextProvider
     {
         private readonly IWalletService _walletService;
         private readonly IPoolService _poolService;
@@ -25,7 +27,7 @@ namespace Poc.Mobile.App.Services
         /// <param name="poolService">The pool service.</param>
         /// <param name="provisioningService">The provisioning service.</param>
         /// <param name="keyValueStoreService">Key value store.</param>
-        public AgentContextService(IWalletService walletService,
+        public AgentContextProvider(IWalletService walletService,
             IPoolService poolService,
             IProvisioningService provisioningService,
             IKeyValueStoreService keyValueStoreService)
@@ -41,15 +43,15 @@ namespace Poc.Mobile.App.Services
         
         public async Task<bool> CreateAgentAsync(AgentOptions options)
         {
-            await _walletService.CreateWalletAsync(options.WalletOptions.WalletConfiguration, options.WalletOptions.WalletCredentials);
-
-            var wallet = await _walletService.GetWalletAsync(options.WalletOptions.WalletConfiguration, options.WalletOptions.WalletCredentials);
-
-            await _provisioningService.ProvisionAgentAsync(wallet, new ProvisioningConfiguration
+            WalletConfiguration.WalletStorageConfiguration _storage = new WalletConfiguration.WalletStorageConfiguration { Path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".indy_client") };
+            options.WalletOptions.WalletConfiguration.StorageConfiguration = _storage;
+            
+            await _provisioningService.ProvisionAgentAsync(new ProvisioningConfiguration
             {
+                WalletConfiguration = options.WalletOptions.WalletConfiguration,
+                WalletCredentials = options.WalletOptions.WalletCredentials,
                 AgentSeed = options.Seed,
-                EndpointUri = new Uri($"{options.EndpointUri}"),
-                TailsBaseUri = new Uri($"{options.EndpointUri}/tails") //TODO SDK-issue this Uri is required even when creating a non-issuer agent, throws generic NRE when not present.
+                EndpointUri = new Uri($"{options.EndpointUri}")
             });
 
             await _keyValueStoreService.SetDataAsync(AgentOptionsKey, options);
@@ -58,25 +60,28 @@ namespace Poc.Mobile.App.Services
             return true;
         }
 
-        /// <summary>
-        /// Returns the agent context containing wallet and agent information
-        /// </summary>
-        /// <returns></returns>
-        public virtual async Task<AgentContext> GetContextAsync()
+        public bool AgentExists() => _options != null;
+        public async Task<IAgentContext> GetContextAsync(string agentId = null)
         {
-            if(!AgentExists())//TODO uniform approach to error protection
+            if (!AgentExists())//TODO uniform approach to error protection
                 throw new Exception("Agent doesnt exist");
 
-            var wallet = await _walletService.GetWalletAsync(_options.WalletOptions.WalletConfiguration, _options.WalletOptions.WalletCredentials);
+            Wallet wallet;
+            try
+            {
+                wallet = await _walletService.GetWalletAsync(_options.WalletOptions.WalletConfiguration, _options.WalletOptions.WalletCredentials);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
 
             return new AgentContext
             {
                 Did = _options.Did,
-                Id = _options.AgentId,
                 Wallet = wallet
             };
         }
-
-        public bool AgentExists() => _options != null;
     }
 }

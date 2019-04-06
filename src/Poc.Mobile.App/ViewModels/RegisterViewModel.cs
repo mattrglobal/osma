@@ -10,16 +10,16 @@ namespace Poc.Mobile.App.ViewModels
 {
     public class RegisterViewModel : ABaseViewModel
     {
-        private readonly IAgentContextService _agentContextService;
+        private readonly ICustomAgentContextProvider _agentContextProvider;
 
         public RegisterViewModel(IUserDialogs userDialogs, 
                                  INavigationService navigationService,
-                                 IAgentContextService agentContextService) : base(
+                                 ICustomAgentContextProvider agentContextProvider) : base(
                                  nameof(RegisterViewModel), 
                                  userDialogs, 
                                  navigationService)
         {
-            _agentContextService = agentContextService;
+            _agentContextProvider = agentContextProvider;
         }
 
         #region Bindable Commands
@@ -45,7 +45,7 @@ namespace Poc.Mobile.App.ViewModels
                 EndpointUri = "http://mockagency.com"
             };
 
-            if (await _agentContextService.CreateAgentAsync(options))
+            if (await _agentContextProvider.CreateAgentAsync(options))
             {
                 await NavigationService.NavigateToAsync<MainViewModel>();
                 dialog?.Hide();

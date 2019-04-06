@@ -37,7 +37,7 @@ namespace Poc.Mobile.App.ViewModels.Connections
             await base.InitializeAsync(navigationData);
         }
 
-        public async Task RefreshTransactions()
+        public Task RefreshTransactions()
         {
             RefreshingTransactions = true;
 
@@ -66,6 +66,8 @@ namespace Poc.Mobile.App.ViewModels.Connections
             HasTransactions = transactions.Any();
 
             RefreshingTransactions = false;
+
+            return Task.FromResult(true);
         }
 
 

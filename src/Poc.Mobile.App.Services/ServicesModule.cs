@@ -1,4 +1,5 @@
-﻿using AgentFramework.Core.Runtime;
+﻿using System.Net.Http;
+using AgentFramework.Core.Runtime;
 using Autofac;
 
 namespace Poc.Mobile.App.Services
@@ -8,9 +9,18 @@ namespace Poc.Mobile.App.Services
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            
+
             builder
-                .RegisterType<AgentContextService>()
+                .RegisterType<HttpClientHandler>()
+                .As<HttpMessageHandler>();
+
+            builder
+                .RegisterType<EventAggregator>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
+            builder
+                .RegisterType<AgentContextProvider>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
 
@@ -50,15 +60,10 @@ namespace Poc.Mobile.App.Services
                 .SingleInstance();
 
             builder
-                .RegisterType<DefaultRouterService>()
+                .RegisterType<DefaultMessageService>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
-
-            builder
-                .RegisterType<DefaultMessageSerializer>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-
+            
             builder
                 .RegisterType<DefaultLedgerService>()
                 .AsImplementedInterfaces()

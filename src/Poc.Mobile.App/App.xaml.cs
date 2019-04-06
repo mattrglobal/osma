@@ -24,7 +24,7 @@ namespace Poc.Mobile.App
         public Palette Colors;
 
         private readonly INavigationService _navigationService;
-        private readonly IAgentContextService _contextService;
+        private readonly ICustomAgentContextProvider _contextProvider;
 
         public App(IContainer container)
         {
@@ -32,7 +32,7 @@ namespace Poc.Mobile.App
 
             Colors.Init();
             _navigationService = container.Resolve<INavigationService>();
-            _contextService = container.Resolve<IAgentContextService>();
+            _contextProvider = container.Resolve<ICustomAgentContextProvider>();
 
             InitializeTask = Initialize();
         }
@@ -50,7 +50,7 @@ namespace Poc.Mobile.App
             _navigationService.AddPageViewModelBinding<CredentialViewModel, CredentialPage>();
             _navigationService.AddPageViewModelBinding<AccountViewModel, AccountPage>();
 
-            if (_contextService.AgentExists())
+            if (_contextProvider.AgentExists())
             {
                 await _navigationService.NavigateToAsync<MainViewModel>();
             }
