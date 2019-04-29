@@ -13,6 +13,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
 {
     public class AcceptInviteViewModel : ABaseViewModel
     {
+        private readonly IProvisioningService _provisioningService;
         private readonly IConnectionService _connectionService;
         private readonly IMessageService _messageService;
         private readonly IAgentContextProvider _contextProvider;
@@ -21,11 +22,13 @@ namespace Osma.Mobile.App.ViewModels.Connections
 
         public AcceptInviteViewModel(IUserDialogs userDialogs,
                                      INavigationService navigationService,
+                                     IProvisioningService provisioningService,
                                      IConnectionService connectionService,
                                      IMessageService messageService,
                                      IAgentContextProvider contextProvider)
                                      : base("Accept Invitiation", userDialogs, navigationService)
         {
+            _provisioningService = provisioningService;
             _connectionService = connectionService;
             _contextProvider = contextProvider;
             _messageService = messageService;
@@ -42,6 +45,24 @@ namespace Osma.Mobile.App.ViewModels.Connections
             return base.InitializeAsync(navigationData);
         }
 
+        public async Task<bool> CreateConnection(IAgentContext context, ConnectionInvitationMessage invite)
+        {
+            var provisioningRecord = await _provisioningService.GetProvisioningAsync(context.Wallet);
+
+            //TODO if no endpoint configured use return routing to complete the connection else use other method
+            try
+            {
+                var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
+                var rsp = await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First(), true);
+                await _connectionService.ProcessResponseAsync(context, rsp.GetMessage<ConnectionResponseMessage>(), rec);
+                return true;
+            }
+            catch (Exception) //TODO more granular error protection
+            {
+                return false;
+            }
+        }
+
         #region Bindable Commands
         public ICommand AcceptInviteCommand => new Command(async () =>
         {
@@ -52,24 +73,17 @@ namespace Osma.Mobile.App.ViewModels.Connections
             if (context == null || _invite == null)
             {
                 loadingDialog.Hide();
-                DialogService.Alert("Failed to accept invite!");
+                DialogService.Alert("Failed to decode invite!");
                 return;
             }
 
-            try
-            {
-                var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
-                var rsp = await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First(), true);
-                await _connectionService.ProcessResponseAsync(context, rsp.GetMessage<ConnectionResponseMessage>(), rec);
-            }
-            catch (Exception) //TODO more granular error protection
-            {
-                loadingDialog.Hide();
-                DialogService.Alert("Failed to accept invite!");
-            }
-
+            var result = await CreateConnection(context, _invite);
+            
             if (loadingDialog.IsShowing)
                 loadingDialog.Hide();
+
+            if (!result)
+                DialogService.Alert("Failed to accept invite!");
 
             await NavigationService.PopModalAsync();
         });
