@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Osma.Mobile.App.Views.Connections.ErrorItemView">
+    <ContentView.Content>
+         <StackLayout Padding="16">
+            <Label Text="This transaction could not be loaded, something went wrong" FontSize="Small" TextColor="Red"/>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

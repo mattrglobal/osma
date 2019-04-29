@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Osma.Mobile.App.Views.Connections;assembly=Osma.Mobile.App"
+             xmlns:converters="clr-namespace:Osma.Mobile.App.Converters;assembly=Osma.Mobile.App"
+             xmlns:behaviours="clr-namespace:Osma.Mobile.App.Behaviors;assembly=Osma.Mobile.App"
+             x:Class="Osma.Mobile.App.Views.Connections.ConnectionsPage"
+             Title="{Binding Name}"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.LargeTitleDisplay="Always"
+    >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SelecteditemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter" />
+            <converters:InverseBooleanConverter x:Key="BooleanInverse" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="AddConnection" Order="Primary" Text="Connect" Priority="0" Command ="{Binding ScanInviteCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout
+                IsVisible="{Binding HasConnections}">
+                <ListView
+                    HasUnevenRows="True"
+                    IsPullToRefreshEnabled="True"
+                    IsRefreshing="{Binding RefreshingConnections}"
+                    RefreshCommand="{Binding RefreshCommand}"
+                    IsEnabled="{Binding RefreshingConnections, Converter={StaticResource BooleanInverse}}"
+                    ItemsSource="{Binding Connections}"
+                    SeparatorVisibility="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <views:ConnectionPartialView/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Behaviors>
+                        <behaviours:EventToCommandBehavior EventName="ItemSelected" Command="{Binding SelectConnectionCommand}" Converter="{StaticResource SelectedItemConverter}" DeselectOnClick="true"/>
+                    </ListView.Behaviors>
+                </ListView>
+            </StackLayout>
+            <StackLayout
+                VerticalOptions="FillAndExpand"
+                IsVisible="{Binding HasConnections, Converter={StaticResource BooleanInverse}}">
+                <StackLayout
+                    Orientation="Vertical"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand">
+                    <ActivityIndicator
+                        IsVisible="{Binding RefreshingConnections}"
+                        IsRunning="{Binding RefreshingConnections}"/>
+                    <Label
+                        IsVisible="{Binding RefreshingConnections, Converter={StaticResource BooleanInverse}}" 
+                        Text="Nothing to see here.... (empty state)" />
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

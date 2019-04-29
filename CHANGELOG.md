@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Refactored app from poc to osma
 - README section on project structure
 - README section on Gorilla Player UI Development
 - README section on GIT LFS

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Osma.Mobile.App.Converters;assembly=Osma.Mobile.App"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:Class="Osma.Mobile.App.Views.Connections.AcceptInvitePage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBooleanConverter x:Key="BooleanInverse" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid
+            Padding="15"
+            RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="1.8*" />
+                <RowDefinition Height="0.5*" />
+            </Grid.RowDefinitions>
+            <StackLayout
+                Grid.Row="0"
+                Padding="10"
+                VerticalOptions="FillAndExpand">
+                <forms:CachedImage
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    FadeAnimationEnabled="true"
+                    DownsampleUseDipUnits="true"
+                    Source="{ Binding InviterUrl }"
+                    Aspect="Fill"/>
+                </StackLayout>
+            <StackLayout
+                Grid.Row="1"
+                VerticalOptions="StartAndExpand"
+                Spacing="10"
+                Padding="10">
+                <Label
+                    FontSize="26"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding InviteTitle}"/>
+                <Label
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding InviteContents}"/>
+            </StackLayout>
+            <StackLayout
+                Grid.Row="2"
+                Padding="10"
+                Orientation="Horizontal"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Button
+                    HorizontalOptions="FillAndExpand"
+                    Style="{DynamicResource BlueButtonStyle}"
+                    IsEnabled="{Binding IsBusy, Converter={StaticResource BooleanInverse}}"
+                    Command="{Binding AcceptInviteCommand}"
+                    Text="Trust"/>
+                <Button
+                    Style="{DynamicResource RedButtonStyle}"
+                    IsEnabled="{Binding IsBusy, Converter={StaticResource BooleanInverse}}"
+                    Command="{Binding RejectInviteCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Dont trust"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

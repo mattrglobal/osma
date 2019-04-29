@@ -1,0 +1,130 @@
+{
+  "Views\\MainPage.xaml": {
+    "Title": "My Wallet",
+    "Connections": {
+      "Name": "My Connections",
+      "HasConnections": true,
+      "Connections": [
+        {
+          "Name": "Faber Bank",
+          "Subtitle": "Test data"
+        },
+        {
+          "Name": "Alice",
+          "Subtitle": "Test data"
+        },
+        {
+          "Name": "Bob",
+          "Subtitle": "Test data"
+        }
+      ]
+    }
+  },
+  "Views\\Connections\\ConnectionPartialView.xaml": {
+    "ConnectionName": "Faber Bank",
+    "ConnectionSubtitle": "Test data",
+    "ConnectionImageUrl": "https://pbs.twimg.com/profile_images/899211256480940032/8XD4jxu1_400x400.jpg"
+  },
+  "Views\\Connections\\ConnectionsPage.xaml": {
+    "HasConnections": true,
+    "Name": "Connections",
+    "RefreshingConnections": false,
+    "Connections": [
+      {
+        "ConnectionName": "Faber Bank",
+        "ConnectionSubtitle": "Test data",
+        "ConnectionImageUrl": "https://pbs.twimg.com/profile_images/899211256480940032/8XD4jxu1_400x400.jpg"
+      },
+      {
+        "ConnectionName": "Faber Bank",
+        "ConnectionSubtitle": "Test data",
+        "ConnectionImageUrl": "https://pbs.twimg.com/profile_images/899211256480940032/8XD4jxu1_400x400.jpg"
+      },
+      {
+        "ConnectionName": "Faber Bank",
+        "ConnectionSubtitle": "Test data",
+        "ConnectionImageUrl": "https://pbs.twimg.com/profile_images/899211256480940032/8XD4jxu1_400x400.jpg"
+      }
+    ]
+  },
+  "Views\\Connections\\AcceptInvitePage.xaml": {
+    "InviteTitle": "Trust Faber Bank?",
+    "InviteContents": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    "InviterUrl": "https://pbs.twimg.com/profile_images/899211256480940032/8XD4jxu1_400x400.jpg"
+  },
+  "Views\\Connections\\ConnectionPage.xaml": {
+    "ConnectionName": "Faber Bank",
+    "ConnectionSubtitle": "Test subtitle",
+    "ConnectionImageUrl": "https://pbs.twimg.com/profile_images/899211256480940032/8XD4jxu1_400x400.jpg",
+    "MyDid": "myldsjfhkasdjfasd",
+    "TheirDid": "theirsksdjfndsjkanfsdaf",
+    "Transactions":  [
+      {
+        "Type": "Actionable",
+        "Datetime":  "05 May 2018 | 5:35pm",
+        "Title":  "Example actionable",
+        "Subtitle":  "Example Subtitle"
+      },
+      {
+        "Type": "Status",
+        "Datetime": "05 May 2018 | 5:35pm",
+        "Title": "Example status",
+        "Subtitle": "Example Subtitle"
+      }
+    ]
+  },
+  "Views\\Credentials\\CredentialPage.xaml": {
+    "CredentialImageUrl": "https://pbs.twimg.com/profile_images/899211256480940032/8XD4jxu1_400x400.jpg",
+    "CredentialTitle":  "CredentialTitle",
+    "CredentialSubtitle": "CredentialSubtitle",
+    "QRImageUrl": "http://placehold.it/100x100",
+    "Attributes": [
+        {
+            "Type":  "Text",
+            "Name": "First Name",
+            "Value": "Dale"
+        },
+        {
+            "Type": "Text",
+            "Name": "Last Name",
+            "Value": "Jones"
+        },
+        {
+            "Type": "Text",
+            "Name": "My CUID Number",
+            "Value": "923847-23984750-22"
+        },
+        {
+            "Type": "Text",
+            "Name": "Address 1",
+            "Value": "23498 South Meridian"
+        },
+        {
+            "Type": "Text",
+            "Name": "City",
+            "Value": "Seattle"
+        },
+        {
+            "Type": "Text",
+            "Name": "State",
+            "Value": "Washington"
+        },
+        {
+            "Type": "Text",
+            "Name": "Zip",
+            "Value": "98322"
+        },
+        {
+            "Type": "File",
+            "Name": "Documents & Files",
+            "FileExt": "PDF",
+            "Value": "Value",
+            "Date":  "05 AUG 2018"
+        }
+    ]
+  },
+  "Views\\Account\\AccountPage.xaml":  {
+    "FullName":  "Jamie Doe",
+    "AvatarUrl": "http://i.pravatar.cc/100",
+  }
+}

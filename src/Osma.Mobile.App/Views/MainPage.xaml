@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:connections="clr-namespace:Osma.Mobile.App.Views.Connections;assembly=Osma.Mobile.App"
+    xmlns:credentials="clr-namespace:Osma.Mobile.App.Views.Credentials;assembly=Osma.Mobile.App"
+    xmlns:account="clr-namespace:Osma.Mobile.App.Views.Account;assembly=Osma.Mobile.App"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    x:Class="Osma.Mobile.App.Views.MainPage"
+>
+    <NavigationPage
+        Title="Connections"
+        Icon="connection_icon.png"
+        ios:NavigationPage.PrefersLargeTitles="true"
+    >
+        <x:Arguments>
+            <connections:ConnectionsPage BindingContext="{Binding Connections}"/>
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage
+        Icon="credentials_icon.png"
+        Title="Credentials"
+        ios:NavigationPage.PrefersLargeTitles="true"
+    >
+        <x:Arguments>
+            <credentials:CredentialsPage BindingContext="{Binding Credentials}"/>
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage
+        Icon="account_icon.png"
+        Title="Account"
+        ios:NavigationPage.PrefersLargeTitles="true"
+    >
+        <x:Arguments>
+            <account:AccountPage BindingContext="{Binding Account}"/>
+        </x:Arguments>
+    </NavigationPage>
+</TabbedPage>
