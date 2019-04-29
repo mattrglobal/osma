@@ -59,7 +59,8 @@ namespace Osma.Mobile.App.ViewModels.Connections
             try
             {
                 var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
-                await _messageService.SendToConnectionAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First());
+                var rsp = await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First(), true);
+                await _connectionService.ProcessResponseAsync(context, rsp.GetMessage<ConnectionResponseMessage>(), rec);
             }
             catch (Exception) //TODO more granular error protection
             {

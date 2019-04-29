@@ -23,7 +23,7 @@
         /// <value>The pool options.</value>
         public PoolOptions PoolOptions { get; set; }
 
-        public string EndpointUri { get; set; } = "127.0.0.1:5000";
+        public string EndpointUri { get; set; }
 
         /// <summary>
         ///     Gets or sets the agent did.

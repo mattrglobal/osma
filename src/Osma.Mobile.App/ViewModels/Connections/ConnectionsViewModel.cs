@@ -6,11 +6,12 @@ using System.Windows.Input;
 using Acr.UserDialogs;
 using AgentFramework.Core.Contracts;
 using AgentFramework.Core.Messages.Connections;
+using AgentFramework.Core.Utils;
 using Autofac;
+using Newtonsoft.Json;
 using Osma.Mobile.App.Extensions;
 using Osma.Mobile.App.Services;
 using Osma.Mobile.App.Services.Interfaces;
-using Osma.Mobile.App.Services.Utils;
 using ReactiveUI;
 using Xamarin.Forms;
 using ZXing.Net.Mobile.Forms;
@@ -93,7 +94,8 @@ namespace Osma.Mobile.App.ViewModels.Connections
 
                 try
                 {
-                    invitation = InvitationUtils.DecodeInvite(result.Text);
+                    var jsonMessage = MessageUtils.DecodeMessageFromUrlFormat(result.Text);
+                    invitation = JsonConvert.DeserializeObject<ConnectionInvitationMessage>(jsonMessage);
                 }
                 catch (Exception)
                 {
