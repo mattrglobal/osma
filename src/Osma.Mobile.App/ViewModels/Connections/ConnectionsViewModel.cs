@@ -49,11 +49,12 @@ namespace Osma.Mobile.App.ViewModels.Connections
             var context = await _agentContextProvider.GetContextAsync();
             var records = await _connectionService.ListAsync(context);
 
-            #if DEBUG
+#if DEBUG
             var exampleRecord = new AgentFramework.Core.Models.Records.ConnectionRecord
             {
                 Id = Guid.NewGuid().ToString().ToLowerInvariant(),
-                Alias = new AgentFramework.Core.Models.Connections.ConnectionAlias {
+                Alias = new AgentFramework.Core.Models.Connections.ConnectionAlias
+                {
                     Name = "Example Connection",
                     ImageUrl = "https://placehold.it/300x300"
                 },
@@ -62,7 +63,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
                 TheirDid = "sov:KNWvuaPtWtL8fgaArBeKr1",
             };
             records.Add(exampleRecord);
-            #endif
+#endif
 
             IList<ConnectionViewModel> connectionVms = new List<ConnectionViewModel>();
             foreach (var record in records)
@@ -83,7 +84,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
         public async Task ScanInvite()
         {
             var expectedFormat = ZXing.BarcodeFormat.QR_CODE;
-            var opts = new ZXing.Mobile.MobileBarcodeScanningOptions{ PossibleFormats = new List<ZXing.BarcodeFormat> { expectedFormat }};
+            var opts = new ZXing.Mobile.MobileBarcodeScanningOptions { PossibleFormats = new List<ZXing.BarcodeFormat> { expectedFormat } };
 
             var scannerPage = new ZXingScannerPage(opts);
             scannerPage.OnScanResult += (result) => {
@@ -93,11 +94,13 @@ namespace Osma.Mobile.App.ViewModels.Connections
 
                 try
                 {
-                    invitation = InvitationUtils.DecodeInvite(result.Text);
+                    string inviteEncoding = InvitationUtils.FromUri(result.Text);
+                    string inviteJson = InvitationUtils.FromBase64String(inviteEncoding);
+                    invitation = InvitationUtils.DecodeInvite(inviteJson);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    DialogService.Alert("Invalid invitation!");
+                    DialogService.Alert("Invalid invitation!" + ex.ToString());
                     Device.BeginInvokeOnMainThread(async () => await NavigationService.PopModalAsync());
                     return;
                 }
