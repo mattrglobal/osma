@@ -11,7 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Decoding invitiations from a valid URL format
 - Return routing support for connection establishment
-- Updated AgentFramework to 4.0.0-preview
 - Refactored app from poc to osma
 - README section on project structure
 - README section on Gorilla Player UI Development
@@ -58,6 +57,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Create Legal page
 - Create Account page
 - Create AccountMenuButtonView
-
 
 [Unreleased]: https://bitbucket.org/sparkchain/poc-mobile-app/compare/HEAD..13ad5882e4c9a526a27cde19270bcbc56c1d53fa
