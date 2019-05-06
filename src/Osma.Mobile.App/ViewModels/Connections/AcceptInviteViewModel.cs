@@ -49,17 +49,32 @@ namespace Osma.Mobile.App.ViewModels.Connections
         {
             var provisioningRecord = await _provisioningService.GetProvisioningAsync(context.Wallet);
 
-            //TODO if no endpoint configured use return routing to complete the connection else use other method
-            try
+            if (provisioningRecord.Endpoint.Uri != null)
             {
-                var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
-                var rsp = await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First(), true);
-                await _connectionService.ProcessResponseAsync(context, rsp.GetMessage<ConnectionResponseMessage>(), rec);
-                return true;
+                try
+                {
+                    var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
+                    await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First());
+                    return true;
+                }
+                catch (Exception) //TODO more granular error protection
+                {
+                    return false;
+                }
             }
-            catch (Exception) //TODO more granular error protection
+            else
             {
-                return false;
+                try
+                {
+                    var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
+                    var rsp = await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First(), true);
+                    await _connectionService.ProcessResponseAsync(context, rsp.GetMessage<ConnectionResponseMessage>(), rec);
+                    return true;
+                }
+                catch (Exception) //TODO more granular error protection
+                {
+                    return false;
+                }
             }
         }
 
