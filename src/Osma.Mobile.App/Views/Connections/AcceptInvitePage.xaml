@@ -29,7 +29,7 @@
                     DownsampleUseDipUnits="true"
                     Source="{ Binding InviterUrl }"
                     Aspect="Fill"/>
-                </StackLayout>
+            </StackLayout>
             <StackLayout
                 Grid.Row="1"
                 VerticalOptions="StartAndExpand"
@@ -50,17 +50,17 @@
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand">
                 <Button
-                    HorizontalOptions="FillAndExpand"
-                    Style="{DynamicResource BlueButtonStyle}"
-                    IsEnabled="{Binding IsBusy, Converter={StaticResource BooleanInverse}}"
-                    Command="{Binding AcceptInviteCommand}"
-                    Text="Trust"/>
-                <Button
                     Style="{DynamicResource RedButtonStyle}"
                     IsEnabled="{Binding IsBusy, Converter={StaticResource BooleanInverse}}"
                     Command="{Binding RejectInviteCommand}"
                     HorizontalOptions="FillAndExpand"
-                    Text="Dont trust"/>
+                    Text="cancel"/>
+                <Button
+                    HorizontalOptions="FillAndExpand"
+                    Style="{DynamicResource BlueButtonStyle}"
+                    IsEnabled="{Binding IsBusy, Converter={StaticResource BooleanInverse}}"
+                    Command="{Binding AcceptInviteCommand}"
+                    Text="connect"/>
             </StackLayout>
         </Grid>
     </ContentPage.Content>

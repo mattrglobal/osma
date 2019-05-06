@@ -16,6 +16,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
         private readonly IConnectionService _connectionService;
         private readonly IMessageService _messageService;
         private readonly IAgentContextProvider _contextProvider;
+        private const string Contents = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
 
         private ConnectionInvitationMessage _invite;
 
@@ -35,8 +36,9 @@ namespace Osma.Mobile.App.ViewModels.Connections
         {
             if (navigationData is ConnectionInvitationMessage invite)
             {
-                InviteTitle = $"Trust {invite.Label}?";
+                InviteTitle = $"Connect with {invite.Label}?";
                 InviterUrl = invite.ImageUrl;
+                InviteContents = $"{invite.Label} would like to establish a pairwise DID connection with you. This will allow secure communication between you and {invite.Label}.";
                 _invite = invite;
             }
             return base.InitializeAsync(navigationData);
@@ -85,7 +87,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
             set => this.RaiseAndSetIfChanged(ref _inviteTitle, value);
         }
 
-        private string _inviteContents = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
+        private string _inviteContents = Contents;
         public string InviteContents
         {
             get => _inviteContents;
