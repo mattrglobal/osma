@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added decoding invitiations from a valid URL format
+- Added return routing support for connection establishment
 - Updated AgentFramework to 4.0.0-preview
 - Refactored app from poc to osma
 - README section on project structure
