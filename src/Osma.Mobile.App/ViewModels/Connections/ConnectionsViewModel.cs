@@ -98,9 +98,9 @@ namespace Osma.Mobile.App.ViewModels.Connections
                     string inviteJson = InvitationUtils.FromBase64String(inviteEncoding);
                     invitation = InvitationUtils.DecodeInvite(inviteJson);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    DialogService.Alert("Invalid invitation!" + ex.ToString());
+                    DialogService.Alert("Invalid invitation!");
                     Device.BeginInvokeOnMainThread(async () => await NavigationService.PopModalAsync());
                     return;
                 }
