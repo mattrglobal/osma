@@ -54,13 +54,13 @@
                     IsEnabled="{Binding IsBusy, Converter={StaticResource BooleanInverse}}"
                     Command="{Binding RejectInviteCommand}"
                     HorizontalOptions="FillAndExpand"
-                    Text="cancel"/>
+                    Text="Cancel"/>
                 <Button
                     HorizontalOptions="FillAndExpand"
                     Style="{DynamicResource BlueButtonStyle}"
                     IsEnabled="{Binding IsBusy, Converter={StaticResource BooleanInverse}}"
                     Command="{Binding AcceptInviteCommand}"
-                    Text="connect"/>
+                    Text="Connect"/>
             </StackLayout>
         </Grid>
     </ContentPage.Content>
