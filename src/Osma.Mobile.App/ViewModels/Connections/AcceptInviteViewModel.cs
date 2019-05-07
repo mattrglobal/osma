@@ -40,6 +40,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
             {
                 InviteTitle = $"Trust {invite.Label}?";
                 InviterUrl = invite.ImageUrl;
+                InviteContents = $"{invite.Label} would like to establish a pairwise DID connection with you. This will allow secure communication between you and {invite.Label}.";
                 _invite = invite;
             }
             return base.InitializeAsync(navigationData);
