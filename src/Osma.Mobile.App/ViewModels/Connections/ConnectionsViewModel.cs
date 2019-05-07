@@ -8,7 +8,6 @@ using AgentFramework.Core.Contracts;
 using AgentFramework.Core.Messages.Connections;
 using AgentFramework.Core.Utils;
 using Autofac;
-using Newtonsoft.Json;
 using Osma.Mobile.App.Extensions;
 using Osma.Mobile.App.Services;
 using Osma.Mobile.App.Services.Interfaces;
@@ -94,8 +93,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
 
                 try
                 {
-                    var jsonMessage = MessageUtils.DecodeMessageFromUrlFormat(result.Text);
-                    invitation = JsonConvert.DeserializeObject<ConnectionInvitationMessage>(jsonMessage);
+                    invitation = MessageUtils.DecodeMessageFromUrlFormat<ConnectionInvitationMessage>(result.Text);
                 }
                 catch (Exception)
                 {
