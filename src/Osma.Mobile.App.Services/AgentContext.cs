@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using AgentFramework.Core.Contracts;
+using AgentFramework.Core.Messages;
 using AgentFramework.Core.Models;
-using AgentFramework.Core.Models.Records;
-using Hyperledger.Indy.PoolApi;
 using Hyperledger.Indy.WalletApi;
 
 namespace Osma.Mobile.App.Services
@@ -15,9 +14,6 @@ namespace Osma.Mobile.App.Services
 
         /// <inheritdoc />
         public Dictionary<string, string> State { get; set; }
-
-        /// <inheritdoc />
-        public ConnectionRecord Connection { get; set; }
 
         /// <inheritdoc />
         public Wallet Wallet { get; set; }
@@ -33,5 +29,8 @@ namespace Osma.Mobile.App.Services
         /// </summary>
         /// <value>The agent verkey.</value>
         public string Verkey { get; set; }
+
+        /// <inheritdoc />
+        public IList<MessageType> SupportedMessages { get; set; } = new List<MessageType>();
     }
 }

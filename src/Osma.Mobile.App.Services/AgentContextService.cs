@@ -51,7 +51,7 @@ namespace Osma.Mobile.App.Services
                 WalletConfiguration = options.WalletOptions.WalletConfiguration,
                 WalletCredentials = options.WalletOptions.WalletCredentials,
                 AgentSeed = options.Seed,
-                EndpointUri = new Uri($"{options.EndpointUri}")
+                EndpointUri = options.EndpointUri != null ? new Uri($"{options.EndpointUri}") : null
             });
 
             await _keyValueStoreService.SetDataAsync(AgentOptionsKey, options);

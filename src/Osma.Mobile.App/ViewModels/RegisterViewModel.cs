@@ -41,8 +41,7 @@ namespace Osma.Mobile.App.ViewModels
                 {
                     WalletConfiguration = new WalletConfiguration {Id = Guid.NewGuid().ToString() },
                     WalletCredentials = new WalletCredentials {Key = "LocalWalletKey" }
-                },
-                EndpointUri = "http://mockagency.com"
+                }
             };
 
             if (await _agentContextProvider.CreateAgentAsync(options))
