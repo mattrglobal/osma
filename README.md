@@ -32,7 +32,8 @@ Much of the emerging standards Osma and AgentFramework implement are born out of
 
 ## Getting started
 1. Clone it locally,
-2. Open osma-mobile-app.sln and build!
+2. Run `git lfs pull` in order to pull the dependent native libraries with LFS. If you do not have this installed please refer to [here](docs/development.md)  
+3. Open osma-mobile-app.sln and build!
 
 For more information on the development practises featured in this repository please refer to [here](docs/development.md)
 
