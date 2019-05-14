@@ -32,8 +32,22 @@ Much of the emerging standards Osma and AgentFramework implement are born out of
 
 ## Getting started
 1. Clone it locally,
-2. Open osma-mobile-app.sln and build!
+2. Run `git lfs pull` in order to pull the dependent native libraries with LFS. If you do not have this installed please refer to [here](docs/development.md)  
+3. Open osma-mobile-app.sln and build!
 
 For more information on the development practises featured in this repository please refer to [here](docs/development.md)
+
+## A Quick Demo
+
+The following demo describes how you can connect with another agent.
+
+1. Clone [AgentFramework](https://github.com/streetcred-id/agent-framework)
+2. From the `/scripts` folder in the repository run `./start-web-agents.sh` - Note this shell script relys on [ngrok](https://ngrok.com/) to run the agents on a publically accessable addresses.
+3. Note the public URL's that are outputed by the script with the following text `Starting Web Agents with public urls http://... http://...`
+3. Browse to one of the urls noted above.
+4. In the rendered UI, click `Connections`->`Create Invitation`, a QR code should be displayed.
+5. In the osma mobile app, deployed to a mobile phone, click the connect button in the top right corner of the connections tab.
+6. Scan the QR code rendered in the browser with the osma mobile app and click connect in the rendered UI.
+7. Congrats, you should now be redirected in the mobile app back to the connections page showing a new connection with the AgentFramework web agent! 
 
 
