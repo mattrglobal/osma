@@ -43,9 +43,10 @@ namespace Osma.Mobile.App.Services
         
         public async Task<bool> CreateAgentAsync(AgentOptions options)
         {
+#if __ANDROID__
             WalletConfiguration.WalletStorageConfiguration _storage = new WalletConfiguration.WalletStorageConfiguration { Path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".indy_client") };
             options.WalletOptions.WalletConfiguration.StorageConfiguration = _storage;
-            
+#endif
             await _provisioningService.ProvisionAgentAsync(new ProvisioningConfiguration
             {
                 WalletConfiguration = options.WalletOptions.WalletConfiguration,
