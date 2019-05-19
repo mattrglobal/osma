@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
@@ -8,6 +9,7 @@ using AgentFramework.Core.Contracts;
 using AgentFramework.Core.Messages.Connections;
 using AgentFramework.Core.Utils;
 using Autofac;
+using Osma.Mobile.App.Events.Osma.Mobile.App.Events;
 using Osma.Mobile.App.Extensions;
 using Osma.Mobile.App.Services;
 using Osma.Mobile.App.Services.Interfaces;
@@ -21,23 +23,31 @@ namespace Osma.Mobile.App.ViewModels.Connections
     {
         private readonly IConnectionService _connectionService;
         private readonly ICustomAgentContextProvider _agentContextProvider;
+        private readonly IEventAggregator _eventAggregator;
         private readonly ILifetimeScope _scope;
 
         public ConnectionsViewModel(IUserDialogs userDialogs,
                                     INavigationService navigationService,
                                     IConnectionService connectionService,
                                     ICustomAgentContextProvider agentContextProvider,
+                                    IEventAggregator eventAggregator,
                                     ILifetimeScope scope) :
                                     base("My Connections", userDialogs, navigationService)
         {
             _connectionService = connectionService;
             _agentContextProvider = agentContextProvider;
+            _eventAggregator = eventAggregator;
             _scope = scope;
         }
 
         public override async Task InitializeAsync(object navigationData)
         {
             await RefreshConnections();
+
+            _eventAggregator.GetEventByType<ApplicationEvent>()
+                            .Where(_ => _.EventType == ApplicationEventType.ConnectionsUpdated)
+                            .Subscribe(async _ => await RefreshConnections());
+
             await base.InitializeAsync(navigationData);
         }
 

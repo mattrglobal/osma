@@ -1,5 +1,7 @@
 ﻿using System.Net.Http;
+using AgentFramework.Core.Contracts;
 using AgentFramework.Core.Runtime;
+using AgentFramework.Core.Runtime.Transport;
 using Autofac;
 
 namespace Osma.Mobile.App.Services
@@ -9,6 +11,10 @@ namespace Osma.Mobile.App.Services
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
+
+            builder
+                .RegisterType<HttpMessageDispatcher>()
+                .As<IMessageDispatcher>();
 
             builder
                 .RegisterType<HttpClientHandler>()

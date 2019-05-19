@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Acr.UserDialogs;
 using AgentFramework.Core.Contracts;
 using AgentFramework.Core.Messages.Connections;
+using Osma.Mobile.App.Events.Osma.Mobile.App.Events;
 using Osma.Mobile.App.Services.Interfaces;
 using ReactiveUI;
 using Xamarin.Forms;
@@ -17,6 +18,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
         private readonly IConnectionService _connectionService;
         private readonly IMessageService _messageService;
         private readonly IAgentContextProvider _contextProvider;
+        private readonly IEventAggregator _eventAggregator;
 
         private ConnectionInvitationMessage _invite;
 
@@ -25,13 +27,16 @@ namespace Osma.Mobile.App.ViewModels.Connections
                                      IProvisioningService provisioningService,
                                      IConnectionService connectionService,
                                      IMessageService messageService,
-                                     IAgentContextProvider contextProvider)
+                                     IAgentContextProvider contextProvider,
+                                     IEventAggregator eventAggregator)
                                      : base("Accept Invitiation", userDialogs, navigationService)
         {
             _provisioningService = provisioningService;
             _connectionService = connectionService;
             _contextProvider = contextProvider;
             _messageService = messageService;
+            _contextProvider = contextProvider;
+            _eventAggregator = eventAggregator;
         }
 
         public override Task InitializeAsync(object navigationData)
@@ -46,7 +51,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
             return base.InitializeAsync(navigationData);
         }
 
-        public async Task<bool> CreateConnection(IAgentContext context, ConnectionInvitationMessage invite)
+        private async Task<bool> CreateConnection(IAgentContext context, ConnectionInvitationMessage invite)
         {
             var provisioningRecord = await _provisioningService.GetProvisioningAsync(context.Wallet);
 
@@ -94,7 +99,9 @@ namespace Osma.Mobile.App.ViewModels.Connections
             }
 
             var result = await CreateConnection(context, _invite);
-            
+
+            _eventAggregator.Publish(new ApplicationEvent() { EventType = ApplicationEventType.ConnectionsUpdated });
+
             if (loadingDialog.IsShowing)
                 loadingDialog.Hide();
 

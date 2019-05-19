@@ -3,7 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
+using AgentFramework.Core.Contracts;
 using AgentFramework.Core.Models.Records;
+using Osma.Mobile.App.Events.Osma.Mobile.App.Events;
 using Osma.Mobile.App.Extensions;
 using Osma.Mobile.App.Services.Interfaces;
 using Osma.Mobile.App.Views.Connections;
@@ -16,13 +18,24 @@ namespace Osma.Mobile.App.ViewModels.Connections
     {
         private readonly ConnectionRecord _record;
 
+        private readonly IAgentContextProvider _agentContextProvider;
+        private readonly IConnectionService _connectionService;
+        private readonly IEventAggregator _eventAggregator;
+
         public ConnectionViewModel(IUserDialogs userDialogs,
                                    INavigationService navigationService,
+                                   IAgentContextProvider agentContextProvider,
+                                   IConnectionService connectionService,
+                                   IEventAggregator eventAggregator,
                                    ConnectionRecord record) :
                                    base(nameof(ConnectionViewModel),
                                        userDialogs,
                                        navigationService)
         {
+            _agentContextProvider = agentContextProvider;
+            _connectionService = connectionService;
+            _eventAggregator = eventAggregator;
+
             _record = record;
             MyDid = _record.MyDid;
             TheirDid = _record.TheirDid;
@@ -74,13 +87,24 @@ namespace Osma.Mobile.App.ViewModels.Connections
         #region Bindable Command
         public ICommand NavigateBackCommand => new Command(async () =>
         {
-            // TODO Do we need to check there is something to navigate to
             await NavigationService.PopModalAsync();
         });
 
         public ICommand DeleteConnectionCommand => new Command(async () =>
         {
-            // TODO OS-218 Delete the connection
+            var dialog = DialogService.Loading("Deleting");
+
+            var context = await _agentContextProvider.GetContextAsync();
+            await _connectionService.DeleteAsync(context, _record.Id);
+
+            _eventAggregator.Publish(new ApplicationEvent() { EventType = ApplicationEventType.ConnectionsUpdated });
+
+            if (dialog.IsShowing)
+            {
+                dialog.Hide();
+                dialog.Dispose();
+            }
+
             await NavigationService.PopModalAsync();
         });
 
