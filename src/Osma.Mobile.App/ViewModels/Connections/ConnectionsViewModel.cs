@@ -106,7 +106,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
             await NavigationService.NavigateToAsync((Page)scannerPage, NavigationType.Modal);
         }
 
-        public async Task SelectConnection(ConnectionViewModel connection) => await NavigationService.NavigateToAsync(connection, null, NavigationType.Modal);
+        public async Task SelectConnection(ConnectionViewModel connection) => await NavigationService.NavigateToAsync(connection);
 
         #region Bindable Command
         public ICommand RefreshCommand => new Command(async () => await RefreshConnections());
