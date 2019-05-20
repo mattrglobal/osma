@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Auto refresh connections list on new connection
+- Delete connection support
 - Decoding invitiations from a valid URL format
 - Return routing support for connection establishment
 - Refactored app from poc to osma
