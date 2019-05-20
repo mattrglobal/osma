@@ -54,8 +54,10 @@
                         IsVisible="{Binding RefreshingConnections}"
                         IsRunning="{Binding RefreshingConnections}"/>
                     <Label
+                        HorizontalOptions="CenterAndExpand"
+                        HorizontalTextAlignment="Center"
                         IsVisible="{Binding RefreshingConnections, Converter={StaticResource BooleanInverse}}" 
-                        Text="Nothing to see here.... (empty state)" />
+                        Text="You have no connections - Click connect to get started" />
                 </StackLayout>
             </StackLayout>
         </StackLayout>
