@@ -9,7 +9,7 @@ using AgentFramework.Core.Contracts;
 using AgentFramework.Core.Messages.Connections;
 using AgentFramework.Core.Utils;
 using Autofac;
-using Osma.Mobile.App.Events.Osma.Mobile.App.Events;
+using Osma.Mobile.App.Events;
 using Osma.Mobile.App.Extensions;
 using Osma.Mobile.App.Services;
 using Osma.Mobile.App.Services.Interfaces;
@@ -45,7 +45,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
             await RefreshConnections();
 
             _eventAggregator.GetEventByType<ApplicationEvent>()
-                            .Where(_ => _.EventType == ApplicationEventType.ConnectionsUpdated)
+                            .Where(_ => _.Type == ApplicationEventType.ConnectionsUpdated)
                             .Subscribe(async _ => await RefreshConnections());
 
             await base.InitializeAsync(navigationData);

@@ -5,7 +5,7 @@ using System.Windows.Input;
 using Acr.UserDialogs;
 using AgentFramework.Core.Contracts;
 using AgentFramework.Core.Messages.Connections;
-using Osma.Mobile.App.Events.Osma.Mobile.App.Events;
+using Osma.Mobile.App.Events;
 using Osma.Mobile.App.Services.Interfaces;
 using ReactiveUI;
 using Xamarin.Forms;
@@ -100,7 +100,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
 
             var result = await CreateConnection(context, _invite);
 
-            _eventAggregator.Publish(new ApplicationEvent() { EventType = ApplicationEventType.ConnectionsUpdated });
+            _eventAggregator.Publish(new ApplicationEvent() { Type = ApplicationEventType.ConnectionsUpdated });
 
             if (loadingDialog.IsShowing)
                 loadingDialog.Hide();

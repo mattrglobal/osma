@@ -4,16 +4,13 @@ using System.Text;
 
 namespace Osma.Mobile.App.Events
 {
-    namespace Osma.Mobile.App.Events
+    public enum ApplicationEventType
     {
-        public enum ApplicationEventType
-        {
-            ConnectionsUpdated
-        }
+        ConnectionsUpdated
+    }
 
-        public class ApplicationEvent
-        {
-            public ApplicationEventType EventType { get; set; }
-        }
+    public class ApplicationEvent
+    {
+        public ApplicationEventType Type { get; set; }
     }
 }

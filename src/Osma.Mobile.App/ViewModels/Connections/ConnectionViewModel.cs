@@ -5,7 +5,7 @@ using System.Windows.Input;
 using Acr.UserDialogs;
 using AgentFramework.Core.Contracts;
 using AgentFramework.Core.Models.Records;
-using Osma.Mobile.App.Events.Osma.Mobile.App.Events;
+using Osma.Mobile.App.Events;
 using Osma.Mobile.App.Extensions;
 using Osma.Mobile.App.Services.Interfaces;
 using Osma.Mobile.App.Views.Connections;
@@ -97,7 +97,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
             var context = await _agentContextProvider.GetContextAsync();
             await _connectionService.DeleteAsync(context, _record.Id);
 
-            _eventAggregator.Publish(new ApplicationEvent() { EventType = ApplicationEventType.ConnectionsUpdated });
+            _eventAggregator.Publish(new ApplicationEvent() { Type = ApplicationEventType.ConnectionsUpdated });
 
             if (dialog.IsShowing)
             {
