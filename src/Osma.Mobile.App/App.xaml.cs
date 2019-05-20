@@ -1,5 +1,8 @@
 using System.Threading.Tasks;
 using Autofac;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Osma.Mobile.App.Services.Interfaces;
 using Osma.Mobile.App.Utilities;
 using Osma.Mobile.App.ViewModels;
@@ -62,7 +65,9 @@ namespace Osma.Mobile.App
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+            AppCenter.Start("ios={Your ios App secret here};" +
+                            "android={Your Android App secret here};",
+                  typeof(Analytics), typeof(Crashes));
         }
 
         protected override void OnSleep()
