@@ -3,7 +3,8 @@
     public enum TransactionItemType
     {
         None,
-        Actionable = 1,
-        Status = 2
+        Action = 1,
+        MultiAction = 2,
+        Status = 3
     }
 }

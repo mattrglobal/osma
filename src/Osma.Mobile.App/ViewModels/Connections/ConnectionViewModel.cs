@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using AgentFramework.Core.Contracts;
+using AgentFramework.Core.Messages.Common;
+using AgentFramework.Core.Messages.Discovery;
 using AgentFramework.Core.Models.Records;
 using Osma.Mobile.App.Events;
 using Osma.Mobile.App.Extensions;
@@ -19,12 +22,16 @@ namespace Osma.Mobile.App.ViewModels.Connections
         private readonly ConnectionRecord _record;
 
         private readonly IAgentContextProvider _agentContextProvider;
+        private readonly IMessageService _messageService;
+        private readonly IDiscoveryService _discoveryService;
         private readonly IConnectionService _connectionService;
         private readonly IEventAggregator _eventAggregator;
 
         public ConnectionViewModel(IUserDialogs userDialogs,
                                    INavigationService navigationService,
                                    IAgentContextProvider agentContextProvider,
+                                   IMessageService messageService,
+                                   IDiscoveryService discoveryService,
                                    IConnectionService connectionService,
                                    IEventAggregator eventAggregator,
                                    ConnectionRecord record) :
@@ -33,6 +40,8 @@ namespace Osma.Mobile.App.ViewModels.Connections
                                        navigationService)
         {
             _agentContextProvider = agentContextProvider;
+            _messageService = messageService;
+            _discoveryService = discoveryService;
             _connectionService = connectionService;
             _eventAggregator = eventAggregator;
 
@@ -50,39 +59,90 @@ namespace Osma.Mobile.App.ViewModels.Connections
             await base.InitializeAsync(navigationData);
         }
 
-        public Task RefreshTransactions()
+        public async Task RefreshTransactions()
         {
             RefreshingTransactions = true;
 
-            // TODO OS-201 Get the transactions
+            var context = await _agentContextProvider.GetContextAsync();
+            var msg = _discoveryService.CreateQuery(context, "*");
+
+            DiscoveryDiscloseMessage protocols = null;
+
+            try
+            {
+                var rsp = await _messageService.SendAsync(context.Wallet, msg, _record, null, true);
+                protocols = rsp.GetMessage<DiscoveryDiscloseMessage>();
+            }
+            catch (Exception) { }
+
             IList<TransactionItem> transactions = new List<TransactionItem>();
 
-            #if DEBUG
-            transactions.Add(new TransactionItem
+            if (protocols != null)
             {
-                Title = "test",
-                Subtitle = "test subtitle",
-                Datetime = "YYYY-MM-DD",
-                Type = TransactionItemType.Actionable.ToString("G")
-            });
-            transactions.Add(new TransactionItem
-            {
-                Title = "test",
-                Subtitle = "test subtitle",
-                Datetime = "YYYY-MM-DD",
-                Type = TransactionItemType.Status.ToString("G")
-            });
-            #endif
+                foreach (var protocol in protocols.Protocols)
+                {
+                    switch (protocol.ProtocolId)
+                    {
+                        case "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/trust_ping/1.0":
+                            transactions.Add(new TransactionItem()
+                            {
+                                Title = "Trust Ping",
+                                Subtitle = "Version 1.0",
+                                PrimaryActionTitle = "Ping",
+                                PrimaryActionCommand = new Command(async () =>
+                                {
+                                    await PingConnectionAsync();
+                                }, () => true),
+                                Type = TransactionItemType.Action.ToString("G")
+                            });
+                            break;
+                    }
+                }
+            }
 
             Transactions.Clear();
             Transactions.InsertRange(transactions);
             HasTransactions = transactions.Any();
 
             RefreshingTransactions = false;
-
-            return Task.FromResult(true);
         }
 
+        public async Task PingConnectionAsync()
+        {
+            var dialog = UserDialogs.Instance.Loading("Pinging");
+            var context = await _agentContextProvider.GetContextAsync();
+            var message = new TrustPingMessage
+            {
+                ResponseRequested = true
+            };
+
+            bool success = false;
+            try
+            {
+                var rsp = await _messageService.SendAsync(context.Wallet, message, _record, null, true);
+                var trustPingResponse = rsp.GetMessage<TrustPingResponseMessage>();
+                success = true;
+            }
+            catch (Exception)
+            {
+
+            }
+
+            if (dialog.IsShowing)
+            {
+                dialog.Hide();
+                dialog.Dispose();
+            }
+
+            if (success)
+            {
+                DialogService.Alert("Ping Response Recieved");
+            }
+            else
+            {
+                DialogService.Alert("No Ping Response Recieved");
+            }
+        }
 
         #region Bindable Command
         public ICommand NavigateBackCommand => new Command(async () =>

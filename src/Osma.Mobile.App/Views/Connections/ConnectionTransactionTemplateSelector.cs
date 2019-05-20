@@ -8,7 +8,8 @@ namespace Osma.Mobile.App.Views.Connections
     public class ConnectionTransactionTemplateSelector : DataTemplateSelector
     {
 
-        public DataTemplate ActionableTemplate { get; set; }
+        public DataTemplate MultiActionTemplate { get; set; }
+        public DataTemplate ActionTemplate { get; set; }
         public DataTemplate StatusTemplate { get; set; }
         public DataTemplate ErrorTemplate { get; set; }
 
@@ -42,8 +43,10 @@ namespace Osma.Mobile.App.Views.Connections
 
             switch (transactionItemType)
             {
-                case TransactionItemType.Actionable:
-                    return ActionableTemplate;
+                case TransactionItemType.Action:
+                    return ActionTemplate;
+                case TransactionItemType.MultiAction:
+                    return MultiActionTemplate;
                 case TransactionItemType.Status:
                     return StatusTemplate;
                 default:

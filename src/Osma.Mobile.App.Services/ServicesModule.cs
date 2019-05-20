@@ -82,6 +82,10 @@ namespace Osma.Mobile.App.Services
             builder.RegisterType<DefaultTailsService>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+
+            builder.RegisterType<DefaultDiscoveryService>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
     }
 }

@@ -10,9 +10,14 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:InverseBooleanConverter x:Key="BooleanInverse" />
-            <DataTemplate x:Key="actionableTemplate">
+            <DataTemplate x:Key="actionTemplate">
                 <ViewCell>
-                   <views:ActionableItemView/>
+                    <views:ActionItemView/>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="multiActionTemplate">
+                <ViewCell>
+                    <views:MultiActionItemView/>
                 </ViewCell>
             </DataTemplate>
             <DataTemplate x:Key="statusTemplate">
@@ -27,7 +32,8 @@
             </DataTemplate>
             <views:ConnectionTransactionTemplateSelector
                 x:Key="connectionTransactionTemplateSelector"
-                ActionableTemplate="{StaticResource actionableTemplate}"
+                ActionTemplate="{StaticResource actionTemplate}"
+                MultiActionTemplate="{StaticResource multiActionTemplate}"
                 StatusTemplate="{StaticResource statusTemplate}"
                 ErrorTemplate="{StaticResource errorTemplate}"
             />
