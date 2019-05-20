@@ -17,6 +17,20 @@
             <Color x:Key="RedAccentColor">#EE3A24</Color>
             <Color x:Key="GreenAccentColor">#73DA73</Color>
 
+            <Color x:Key="NavigationBarColor">#2196f3</Color>
+            <Color x:Key="NavigationBarTextColor">#ffffff</Color>
+
+            <Style
+                TargetType="NavigationPage"
+                ApplyToDerivedTypes="true">
+                <Setter
+                    Property="BarBackgroundColor"
+                    Value="{ StaticResource NavigationBarColor }" />
+                <Setter
+                    Property="BarTextColor"
+                    Value="{ StaticResource NavigationBarTextColor }" />
+            </Style>
+
             <Style
                 TargetType="ContentPage"
                 ApplyToDerivedTypes="true">

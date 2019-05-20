@@ -32,7 +32,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
                                     ICustomAgentContextProvider agentContextProvider,
                                     IEventAggregator eventAggregator,
                                     ILifetimeScope scope) :
-                                    base("My Connections", userDialogs, navigationService)
+                                    base("Connections", userDialogs, navigationService)
         {
             _connectionService = connectionService;
             _agentContextProvider = agentContextProvider;

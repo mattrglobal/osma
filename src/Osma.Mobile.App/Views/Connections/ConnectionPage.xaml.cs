@@ -10,6 +10,7 @@ namespace Osma.Mobile.App.Views.Connections
 
         public ConnectionPage()
         {
+            NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
         }
 
