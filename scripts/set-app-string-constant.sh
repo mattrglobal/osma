@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+echo $#
+if [ "$#" -ne 3 ] 
+then
+    echo "Illegal number of parameters please specify APP_CONSTANT_FILE VARIABLE_NAME VARIABLE_VALUE in the order shown"
+    exit
+fi
 
 APP_CONSTANT_FILE=$1
 VARIABLE_NAME=$2
