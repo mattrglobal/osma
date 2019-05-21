@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using AgentFramework.Core.Contracts;
+using AgentFramework.Core.Messages;
 using AgentFramework.Core.Messages.Common;
 using AgentFramework.Core.Messages.Discovery;
 using AgentFramework.Core.Models.Records;
@@ -64,16 +65,20 @@ namespace Osma.Mobile.App.ViewModels.Connections
             RefreshingTransactions = true;
 
             var context = await _agentContextProvider.GetContextAsync();
-            var msg = _discoveryService.CreateQuery(context, "*");
+            var message = _discoveryService.CreateQuery(context, "*");
 
             DiscoveryDiscloseMessage protocols = null;
 
             try
             {
-                var rsp = await _messageService.SendAsync(context.Wallet, msg, _record, null, true);
-                protocols = rsp.GetMessage<DiscoveryDiscloseMessage>();
+                var response = await _messageService.SendAsync(context.Wallet, message, _record, null, true);
+                protocols = response.GetMessage<DiscoveryDiscloseMessage>();
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //Swallow exception
+                //TODO more granular error protection
+            }
 
             IList<TransactionItem> transactions = new List<TransactionItem>();
 
@@ -83,7 +88,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
                 {
                     switch (protocol.ProtocolId)
                     {
-                        case "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/trust_ping/1.0":
+                        case MessageTypes.TrustPingMessageType:
                             transactions.Add(new TransactionItem()
                             {
                                 Title = "Trust Ping",
@@ -125,7 +130,8 @@ namespace Osma.Mobile.App.ViewModels.Connections
             }
             catch (Exception)
             {
-
+                //Swallow exception
+                //TODO more granular error protection
             }
 
             if (dialog.IsShowing)
@@ -134,14 +140,11 @@ namespace Osma.Mobile.App.ViewModels.Connections
                 dialog.Dispose();
             }
 
-            if (success)
-            {
-                DialogService.Alert("Ping Response Recieved");
-            }
-            else
-            {
-                DialogService.Alert("No Ping Response Recieved");
-            }
+            DialogService.Alert(
+                    success ?
+                    "Ping Response Recieved" :
+                    "No Ping Response Recieved"
+                );
         }
 
         #region Bindable Command

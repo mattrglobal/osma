@@ -12,7 +12,7 @@
                     Style="{StaticResource ButtonStylePrimary}"
                 />
                 <Button
-                    Text="{Binding PrimaryActionTitle}"
+                    Text="{Binding SecondaryActionTitle}"
                     Command="{Binding SecondaryActionCommand}"
                     HorizontalOptions="Start"
                     Style="{StaticResource ButtonStyleSecondary}"
