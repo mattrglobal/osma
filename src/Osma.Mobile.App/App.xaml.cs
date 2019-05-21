@@ -65,8 +65,8 @@ namespace Osma.Mobile.App
 
         protected override void OnStart()
         {
-            AppCenter.Start("ios={Your ios App secret here};" +
-                            "android={Your Android App secret here};",
+            AppCenter.Start("ios=aaf709cd-8861-4978-87a3-51885163f6a2" +
+                            "android=4930707b-f2ad-48fc-a02e-c6871317871b",
                   typeof(Analytics), typeof(Crashes));
         }
 
