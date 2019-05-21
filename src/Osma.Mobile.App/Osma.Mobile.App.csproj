@@ -19,7 +19,7 @@
     <NoStdLib>false</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AgentFramework.Core" Version="4.0.0-preview.635" />
+    <PackageReference Include="AgentFramework.Core" Version="4.0.0-preview.637" />
     <PackageReference Include="Acr.UserDialogs" Version="7.0.1" />
     <PackageReference Include="Autofac" Version="4.8.1" />
     <PackageReference Include="ReactiveUI" Version="9.3.5" />
