@@ -65,9 +65,11 @@ namespace Osma.Mobile.App
 
         protected override void OnStart()
         {
-            AppCenter.Start("ios=" + AppConstant.IosAnalyticsKey + ";" +
-                            "android=" + AppConstant.AndroidAnalyticsKey + ";",
-                  typeof(Analytics), typeof(Crashes));
+            #if !DEBUG 
+                AppCenter.Start("ios=" + AppConstant.IosAnalyticsKey + ";" +
+                                "android=" + AppConstant.AndroidAnalyticsKey + ";",
+                        typeof(Analytics), typeof(Crashes));
+            #endif
         }
 
         protected override void OnSleep()
