@@ -82,30 +82,35 @@ namespace Osma.Mobile.App.ViewModels.Connections
 
             IList<TransactionItem> transactions = new List<TransactionItem>();
 
-            if (protocols != null)
+            Transactions.Clear();
+
+            if (protocols == null)
             {
-                foreach (var protocol in protocols.Protocols)
+                HasTransactions = false;
+                RefreshingTransactions = false;
+                return;
+            }
+
+            foreach (var protocol in protocols.Protocols)
+            {
+                switch (protocol.ProtocolId)
                 {
-                    switch (protocol.ProtocolId)
-                    {
-                        case MessageTypes.TrustPingMessageType:
-                            transactions.Add(new TransactionItem()
+                    case MessageTypes.TrustPingMessageType:
+                        transactions.Add(new TransactionItem()
+                        {
+                            Title = "Trust Ping",
+                            Subtitle = "Version 1.0",
+                            PrimaryActionTitle = "Ping",
+                            PrimaryActionCommand = new Command(async () =>
                             {
-                                Title = "Trust Ping",
-                                Subtitle = "Version 1.0",
-                                PrimaryActionTitle = "Ping",
-                                PrimaryActionCommand = new Command(async () =>
-                                {
-                                    await PingConnectionAsync();
-                                }, () => true),
-                                Type = TransactionItemType.Action.ToString("G")
-                            });
-                            break;
-                    }
+                                await PingConnectionAsync();
+                            }, () => true),
+                            Type = TransactionItemType.Action.ToString("G")
+                        });
+                        break;
                 }
             }
 
-            Transactions.Clear();
             Transactions.InsertRange(transactions);
             HasTransactions = transactions.Any();
 
