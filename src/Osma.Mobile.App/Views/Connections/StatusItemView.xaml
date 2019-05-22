@@ -3,7 +3,6 @@
     <ContentView.Content>
         <Frame OutlineColor="Gray" Margin="6" Padding="12" HasShadow="false" BackgroundColor="Transparent">
             <StackLayout>
-                <Label Text="{Binding Datetime}" FontSize="Micro"/>
                 <Label Text="{Binding Title}" FontSize="Medium"/>
                 <Label Text="{Binding Subtitle}" FontSize="Small" />
             </StackLayout>

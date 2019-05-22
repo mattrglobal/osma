@@ -1,18 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ContentView BackgroundColor="Transparent" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Osma.Mobile.App.Views.Connections.ActionableItemView">
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView BackgroundColor="Transparent" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Osma.Mobile.App.Views.Connections.MultiActionItemView">
     <ContentView.Content>
-         <StackLayout Padding="16">
-            <Label Text="{Binding Datetime}" FontSize="Micro"/>
+        <StackLayout Padding="16">
             <Label Text="{Binding Title}" FontSize="Small"/>
             <Label Text="{Binding Subtitle}" FontSize="Micro" />
             <StackLayout Orientation="Horizontal">
                 <Button
-                    Text="View"
+                    Text="{Binding PrimaryActionTitle}"
+                    Command="{Binding PrimaryActionCommand}"
                     HorizontalOptions="Start"
                     Style="{StaticResource ButtonStylePrimary}"
                 />
                 <Button
-                    Text="Ignore"
+                    Text="{Binding SecondaryActionTitle}"
+                    Command="{Binding SecondaryActionCommand}"
                     HorizontalOptions="Start"
                     Style="{StaticResource ButtonStyleSecondary}"
                 />
