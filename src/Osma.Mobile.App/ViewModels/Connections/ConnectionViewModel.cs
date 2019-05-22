@@ -130,7 +130,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
             try
             {
                 var response = await _messageService.SendAsync(context.Wallet, message, _record, null, true);
-                var trustPingResponse = rsp.GetMessage<TrustPingResponseMessage>();
+                var trustPingResponse = response.GetMessage<TrustPingResponseMessage>();
                 success = true;
             }
             catch (Exception)
