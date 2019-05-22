@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- App center prebuild script for injecting secrets
+- App center insights and crash reporting
 - Auto refresh connections list on new connection
 - Delete connection support
 - Decoding invitiations from a valid URL format
