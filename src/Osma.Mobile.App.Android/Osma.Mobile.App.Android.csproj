@@ -64,7 +64,9 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\account_icon.png" />
+  </ItemGroup>
   <ItemGroup>
     <AndroidNativeLibrary Include="libs\arm64-v8a\libindy.so" />
     <AndroidNativeLibrary Include="libs\armeabi-v7a\libindy.so" />

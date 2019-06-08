@@ -199,7 +199,13 @@ namespace Osma.Mobile.App.Services
             else
             {
                 if (page is IRootView)
+                {
+                    object bindingContext = page.BindingContext;
+                    page = new NavigationPage(page);
+                    NavigationPage.SetHasNavigationBar(page, false);
+                    page.BindingContext = bindingContext;
                     CurrentApplication.MainPage = page;
+                }
                 else if (CurrentApplication.MainPage is NavigationPage navPage)
                     await navPage.Navigation.PushAsync(page);
                 //TODO OS-194 else throw exception as the page and Navigation type combination isnt valid

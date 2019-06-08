@@ -16,7 +16,7 @@ namespace Osma.Mobile.App.ViewModels.Account
             IUserDialogs userDialogs,
             INavigationService navigationService
         ) : base(
-            nameof(AccountViewModel),
+            "Account",
             userDialogs,
             navigationService
         )

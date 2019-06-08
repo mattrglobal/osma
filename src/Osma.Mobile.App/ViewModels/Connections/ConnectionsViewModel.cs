@@ -32,7 +32,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
                                     ICustomAgentContextProvider agentContextProvider,
                                     IEventAggregator eventAggregator,
                                     ILifetimeScope scope) :
-                                    base("My Connections", userDialogs, navigationService)
+                                    base("Connections", userDialogs, navigationService)
         {
             _connectionService = connectionService;
             _agentContextProvider = agentContextProvider;
@@ -59,28 +59,12 @@ namespace Osma.Mobile.App.ViewModels.Connections
             var context = await _agentContextProvider.GetContextAsync();
             var records = await _connectionService.ListAsync(context);
 
-            #if DEBUG
-            var exampleRecord = new AgentFramework.Core.Models.Records.ConnectionRecord
-            {
-                Id = Guid.NewGuid().ToString().ToLowerInvariant(),
-                Alias = new AgentFramework.Core.Models.Connections.ConnectionAlias {
-                    Name = "Example Connection",
-                    ImageUrl = "https://placehold.it/300x300"
-                },
-                MyDid = "sov:7N2DqXEPRG7wbqJvJL3diU",
-                State = AgentFramework.Core.Models.Records.ConnectionState.Connected,
-                TheirDid = "sov:KNWvuaPtWtL8fgaArBeKr1",
-            };
-            records.Add(exampleRecord);
-            #endif
-
             IList<ConnectionViewModel> connectionVms = new List<ConnectionViewModel>();
             foreach (var record in records)
             {
                 var connection = _scope.Resolve<ConnectionViewModel>(new NamedParameter("record", record));
                 connectionVms.Add(connection);
             }
-
 
             //TODO need to compare with the currently displayed connections rather than disposing all of them
             Connections.Clear();
@@ -122,7 +106,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
             await NavigationService.NavigateToAsync((Page)scannerPage, NavigationType.Modal);
         }
 
-        public async Task SelectConnection(ConnectionViewModel connection) => await NavigationService.NavigateToAsync(connection, null, NavigationType.Modal);
+        public async Task SelectConnection(ConnectionViewModel connection) => await NavigationService.NavigateToAsync(connection);
 
         #region Bindable Command
         public ICommand RefreshCommand => new Command(async () => await RefreshConnections());

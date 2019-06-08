@@ -41,11 +41,13 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <AbsoluteLayout>
+        <AbsoluteLayout
+                BackgroundColor="{StaticResource NavigationBarColor}">
             <StackLayout
                 Margin="0,64,0,0"
                 AbsoluteLayout.LayoutBounds="0,0,1,1"
                 AbsoluteLayout.LayoutFlags="SizeProportional"
+                BackgroundColor="{StaticResource NavigationBarColor}"
             >
                     <Grid
                         IsClippedToBounds="false"
@@ -95,6 +97,7 @@
                                 Grid.Column="0"
                                 Grid.ColumnSpan="3"
                                 FontSize="Medium"
+                                TextColor="{StaticResource NavigationBarTextColor}"
                                 Text="{Binding ConnectionName}"
                                 FontAttributes="Bold"
                                 HorizontalTextAlignment="Center"
@@ -104,6 +107,7 @@
                                 Grid.Column="0"
                                 Grid.ColumnSpan="3"
                                 FontSize="Small"
+                                TextColor="{StaticResource NavigationBarTextColor}"
                                 Text="{ Binding ConnectionSubtitle }"
                                 HorizontalTextAlignment="Center"
                             />
@@ -111,7 +115,7 @@
             <ListView
                 SelectionMode="None"
                 HasUnevenRows="true"
-                BackgroundColor="{StaticResource DarkPageColor}"
+                BackgroundColor="{StaticResource BasePageColor}"
                 ItemsSource="{Binding Transactions}"
                 IsRefreshing="{Binding RefreshingTransactions}"
                 IsPullToRefreshEnabled="True"
