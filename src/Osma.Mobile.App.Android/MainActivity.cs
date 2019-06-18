@@ -23,6 +23,8 @@ namespace Osma.Mobile.App.Droid
 
             base.OnCreate(bundle);
 
+            Rg.Plugins.Popup.Popup.Init(this, bundle);
+
             Forms.Init(this, bundle);
 
             // Initializing FFImageLoading
