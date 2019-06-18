@@ -67,6 +67,10 @@ namespace Osma.Mobile.App.ViewModels.Connections
                         await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First());
                         return String.Empty;
                     }
+                    catch (AgentFrameworkException agentFrameworkException)
+                    {
+                        return agentFrameworkException.Message;
+                    }
                     catch (Exception) //TODO more granular error protection
                     {
                         return GENERIC_CONNECTION_REQUEST_FAILURE_MESSAGE;
@@ -81,12 +85,17 @@ namespace Osma.Mobile.App.ViewModels.Connections
                         await _connectionService.ProcessResponseAsync(context, rsp.GetMessage<ConnectionResponseMessage>(), rec);
                         return String.Empty;
                     }
+                    catch (AgentFrameworkException agentFrameworkException)
+                    {
+                        return agentFrameworkException.Message;
+                    }
                     catch (Exception) //TODO more granular error protection
                     {
                         return GENERIC_CONNECTION_REQUEST_FAILURE_MESSAGE;
                     }
                 }
-            } catch(AgentFrameworkException agentFrameworkException)
+            }
+            catch(AgentFrameworkException agentFrameworkException)
             {
                 return agentFrameworkException.Message;
             }
