@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Acr.UserDialogs;
 using AgentFramework.Core.Contracts;
 using AgentFramework.Core.Messages.Connections;
+using AgentFramework.Core.Exceptions;
 using Osma.Mobile.App.Events;
 using Osma.Mobile.App.Services.Interfaces;
 using ReactiveUI;
@@ -19,6 +20,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
         private readonly IMessageService _messageService;
         private readonly IAgentContextProvider _contextProvider;
         private readonly IEventAggregator _eventAggregator;
+        private static readonly String GENERIC_CONNECTION_REQUEST_FAILURE_MESSAGE = "Failed to accept invite!";
 
         private ConnectionInvitationMessage _invite;
 
@@ -51,36 +53,42 @@ namespace Osma.Mobile.App.ViewModels.Connections
             return base.InitializeAsync(navigationData);
         }
 
-        private async Task<bool> CreateConnection(IAgentContext context, ConnectionInvitationMessage invite)
+        private async Task<String> CreateConnection(IAgentContext context, ConnectionInvitationMessage invite)
         {
-            var provisioningRecord = await _provisioningService.GetProvisioningAsync(context.Wallet);
+            try
+            {
+                var provisioningRecord = await _provisioningService.GetProvisioningAsync(context.Wallet);
 
-            if (provisioningRecord.Endpoint.Uri != null)
+                if (provisioningRecord.Endpoint.Uri != null)
+                {
+                    try
+                    {
+                        var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
+                        await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First());
+                        return String.Empty;
+                    }
+                    catch (Exception) //TODO more granular error protection
+                    {
+                        return GENERIC_CONNECTION_REQUEST_FAILURE_MESSAGE;
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
+                        var rsp = await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First(), true);
+                        await _connectionService.ProcessResponseAsync(context, rsp.GetMessage<ConnectionResponseMessage>(), rec);
+                        return String.Empty;
+                    }
+                    catch (Exception) //TODO more granular error protection
+                    {
+                        return GENERIC_CONNECTION_REQUEST_FAILURE_MESSAGE;
+                    }
+                }
+            } catch(AgentFrameworkException agentFrameworkException)
             {
-                try
-                {
-                    var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
-                    await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First());
-                    return true;
-                }
-                catch (Exception) //TODO more granular error protection
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                try
-                {
-                    var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
-                    var rsp = await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First(), true);
-                    await _connectionService.ProcessResponseAsync(context, rsp.GetMessage<ConnectionResponseMessage>(), rec);
-                    return true;
-                }
-                catch (Exception) //TODO more granular error protection
-                {
-                    return false;
-                }
+                return agentFrameworkException.Message;
             }
         }
 
@@ -105,8 +113,8 @@ namespace Osma.Mobile.App.ViewModels.Connections
             if (loadingDialog.IsShowing)
                 loadingDialog.Hide();
 
-            if (!result)
-                DialogService.Alert("Failed to accept invite!");
+            if (!String.IsNullOrEmpty(result))
+                DialogService.Alert(result);
 
             await NavigationService.PopModalAsync();
         });
