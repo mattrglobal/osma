@@ -53,51 +53,20 @@ namespace Osma.Mobile.App.ViewModels.Connections
             return base.InitializeAsync(navigationData);
         }
 
-        private async Task<String> CreateConnection(IAgentContext context, ConnectionInvitationMessage invite)
+        private async Task CreateConnection(IAgentContext context, ConnectionInvitationMessage invite)
         {
-            try
-            {
-                var provisioningRecord = await _provisioningService.GetProvisioningAsync(context.Wallet);
+            var provisioningRecord = await _provisioningService.GetProvisioningAsync(context.Wallet);
 
-                if (provisioningRecord.Endpoint.Uri != null)
-                {
-                    try
-                    {
-                        var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
-                        await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First());
-                        return String.Empty;
-                    }
-                    catch (AgentFrameworkException agentFrameworkException)
-                    {
-                        return agentFrameworkException.Message;
-                    }
-                    catch (Exception) //TODO more granular error protection
-                    {
-                        return GENERIC_CONNECTION_REQUEST_FAILURE_MESSAGE;
-                    }
-                }
-                else
-                {
-                    try
-                    {
-                        var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
-                        var rsp = await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First(), true);
-                        await _connectionService.ProcessResponseAsync(context, rsp.GetMessage<ConnectionResponseMessage>(), rec);
-                        return String.Empty;
-                    }
-                    catch (AgentFrameworkException agentFrameworkException)
-                    {
-                        return agentFrameworkException.Message;
-                    }
-                    catch (Exception) //TODO more granular error protection
-                    {
-                        return GENERIC_CONNECTION_REQUEST_FAILURE_MESSAGE;
-                    }
-                }
-            }
-            catch(AgentFrameworkException agentFrameworkException)
+            if (provisioningRecord.Endpoint.Uri != null)
             {
-                return agentFrameworkException.Message;
+                var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
+                await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First());
+            }
+            else
+            {
+                var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
+                var rsp = await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First(), true);
+                await _connectionService.ProcessResponseAsync(context, rsp.GetMessage<ConnectionResponseMessage>(), rec);
             }
         }
 
@@ -115,15 +84,27 @@ namespace Osma.Mobile.App.ViewModels.Connections
                 return;
             }
 
-            var result = await CreateConnection(context, _invite);
+            String errorMessage = String.Empty;
+            try
+            {
+                await CreateConnection(context, _invite);
+            }
+            catch (AgentFrameworkException agentFrameworkException)
+            {
+                errorMessage = agentFrameworkException.Message;
+            }
+            catch (Exception) //TODO more granular error protection
+            {
+                errorMessage = GENERIC_CONNECTION_REQUEST_FAILURE_MESSAGE;
+            }
 
             _eventAggregator.Publish(new ApplicationEvent() { Type = ApplicationEventType.ConnectionsUpdated });
 
             if (loadingDialog.IsShowing)
                 loadingDialog.Hide();
 
-            if (!String.IsNullOrEmpty(result))
-                DialogService.Alert(result);
+            if (!String.IsNullOrEmpty(errorMessage))
+                DialogService.Alert(errorMessage);
 
             await NavigationService.PopModalAsync();
         });
