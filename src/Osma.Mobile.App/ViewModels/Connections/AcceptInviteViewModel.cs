@@ -56,10 +56,10 @@ namespace Osma.Mobile.App.ViewModels.Connections
         private async Task CreateConnection(IAgentContext context, ConnectionInvitationMessage invite)
         {
             var provisioningRecord = await _provisioningService.GetProvisioningAsync(context.Wallet);
-
+            var isEndpointUriAbsent = provisioningRecord.Endpoint.Uri == null;
             var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
-            var rsp = await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First(), provisioningRecord.Endpoint.Uri == null);
-            if (provisioningRecord.Endpoint.Uri == null)
+            var rsp = await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First(), isEndpointUriAbsent);
+            if (isEndpointUriAbsent)
             {
                 await _connectionService.ProcessResponseAsync(context, rsp.GetMessage<ConnectionResponseMessage>(), rec);
             }
