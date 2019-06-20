@@ -57,15 +57,10 @@ namespace Osma.Mobile.App.ViewModels.Connections
         {
             var provisioningRecord = await _provisioningService.GetProvisioningAsync(context.Wallet);
 
-            if (provisioningRecord.Endpoint.Uri != null)
+            var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
+            var rsp = await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First(), provisioningRecord.Endpoint.Uri == null);
+            if (provisioningRecord.Endpoint.Uri == null)
             {
-                var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
-                await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First());
-            }
-            else
-            {
-                var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
-                var rsp = await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First(), true);
                 await _connectionService.ProcessResponseAsync(context, rsp.GetMessage<ConnectionResponseMessage>(), rec);
             }
         }
