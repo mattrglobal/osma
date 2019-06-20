@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Acr.UserDialogs;
 using AgentFramework.Core.Contracts;
 using AgentFramework.Core.Messages.Connections;
+using AgentFramework.Core.Exceptions;
 using Osma.Mobile.App.Events;
 using Osma.Mobile.App.Services.Interfaces;
 using ReactiveUI;
@@ -19,6 +20,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
         private readonly IMessageService _messageService;
         private readonly IAgentContextProvider _contextProvider;
         private readonly IEventAggregator _eventAggregator;
+        private static readonly String GENERIC_CONNECTION_REQUEST_FAILURE_MESSAGE = "Failed to accept invite!";
 
         private ConnectionInvitationMessage _invite;
 
@@ -51,36 +53,20 @@ namespace Osma.Mobile.App.ViewModels.Connections
             return base.InitializeAsync(navigationData);
         }
 
-        private async Task<bool> CreateConnection(IAgentContext context, ConnectionInvitationMessage invite)
+        private async Task CreateConnection(IAgentContext context, ConnectionInvitationMessage invite)
         {
             var provisioningRecord = await _provisioningService.GetProvisioningAsync(context.Wallet);
 
             if (provisioningRecord.Endpoint.Uri != null)
             {
-                try
-                {
-                    var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
-                    await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First());
-                    return true;
-                }
-                catch (Exception) //TODO more granular error protection
-                {
-                    return false;
-                }
+                var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
+                await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First());
             }
             else
             {
-                try
-                {
-                    var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
-                    var rsp = await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First(), true);
-                    await _connectionService.ProcessResponseAsync(context, rsp.GetMessage<ConnectionResponseMessage>(), rec);
-                    return true;
-                }
-                catch (Exception) //TODO more granular error protection
-                {
-                    return false;
-                }
+                var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
+                var rsp = await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First(), true);
+                await _connectionService.ProcessResponseAsync(context, rsp.GetMessage<ConnectionResponseMessage>(), rec);
             }
         }
 
@@ -98,15 +84,27 @@ namespace Osma.Mobile.App.ViewModels.Connections
                 return;
             }
 
-            var result = await CreateConnection(context, _invite);
+            String errorMessage = String.Empty;
+            try
+            {
+                await CreateConnection(context, _invite);
+            }
+            catch (AgentFrameworkException agentFrameworkException)
+            {
+                errorMessage = agentFrameworkException.Message;
+            }
+            catch (Exception) //TODO more granular error protection
+            {
+                errorMessage = GENERIC_CONNECTION_REQUEST_FAILURE_MESSAGE;
+            }
 
             _eventAggregator.Publish(new ApplicationEvent() { Type = ApplicationEventType.ConnectionsUpdated });
 
             if (loadingDialog.IsShowing)
                 loadingDialog.Hide();
 
-            if (!result)
-                DialogService.Alert("Failed to accept invite!");
+            if (!String.IsNullOrEmpty(errorMessage))
+                DialogService.Alert(errorMessage);
 
             await NavigationService.PopModalAsync();
         });

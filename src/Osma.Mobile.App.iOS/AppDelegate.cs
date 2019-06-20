@@ -22,6 +22,7 @@ namespace Osma.Mobile.App.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            Rg.Plugins.Popup.Popup.Init();
             Xamarin.Forms.Forms.Init();
 
             // Initializing FFImageLoading

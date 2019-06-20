@@ -182,13 +182,13 @@ namespace Osma.Mobile.App.Services
             await (page.BindingContext as IABaseViewModel)?.InitializeAsync(parameter);
 
             if (page is PopupPage)
-                await PopupNavigation.PushAsync(page as PopupPage, animate);
+                await PopupNavigation.Instance.PushAsync(page as PopupPage, animate);
             else
                 throw new ArgumentException($"The type ${typeof(TViewModel)} its not a PopupPage type");
 
         }
 
-        public async Task CloseAllPopupsAsync() => await PopupNavigation.PopAllAsync(true);
+        public async Task CloseAllPopupsAsync() => await PopupNavigation.Instance.PopAllAsync(true);
 
         protected virtual async Task InternalNavigateToAsync(Type viewModelType, NavigationType type, object viewModel, object parameter)
         {
