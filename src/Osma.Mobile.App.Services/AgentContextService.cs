@@ -64,7 +64,6 @@ namespace Osma.Mobile.App.Services
         }
 
         public bool AgentExists() => _options != null;
-
         public async Task<IAgentContext> GetContextAsync(params object[] args)
         {
             if (!AgentExists())//TODO uniform approach to error protection
