@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 using AgentFramework.Core.Contracts;
-using AgentFramework.Core.Runtime;
+using AgentFramework.Core.Handlers.Agents;
 using AgentFramework.Core.Runtime.Transport;
 using Autofac;
 
