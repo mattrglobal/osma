@@ -86,6 +86,7 @@ namespace Osma.Mobile.App.Services
             };
         }
 
+        //TODO implement the getAgentSync method
         public Task<IAgent> GetAgentAsync(params object[] args)
         {
             throw new NotImplementedException();
