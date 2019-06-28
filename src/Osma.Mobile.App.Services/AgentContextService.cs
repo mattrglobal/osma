@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using AgentFramework.Core.Contracts;
+using AgentFramework.Core.Handlers.Agents;
 using AgentFramework.Core.Models.Wallets;
 using Hyperledger.Indy.WalletApi;
 using Osma.Mobile.App.Services.Interfaces;
@@ -47,7 +48,7 @@ namespace Osma.Mobile.App.Services
             WalletConfiguration.WalletStorageConfiguration _storage = new WalletConfiguration.WalletStorageConfiguration { Path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".indy_client") };
             options.WalletOptions.WalletConfiguration.StorageConfiguration = _storage;
 #endif
-            await _provisioningService.ProvisionAgentAsync(new ProvisioningConfiguration
+            await _provisioningService.ProvisionAgentAsync(new BasicProvisioningConfiguration
             {
                 WalletConfiguration = options.WalletOptions.WalletConfiguration,
                 WalletCredentials = options.WalletOptions.WalletCredentials,
@@ -62,7 +63,7 @@ namespace Osma.Mobile.App.Services
         }
 
         public bool AgentExists() => _options != null;
-        public async Task<IAgentContext> GetContextAsync(string agentId = null)
+        public async Task<IAgentContext> GetContextAsync(params object[] args)
         {
             if (!AgentExists())//TODO uniform approach to error protection
                 throw new Exception("Agent doesnt exist");
@@ -83,6 +84,12 @@ namespace Osma.Mobile.App.Services
                 Did = _options.Did,
                 Wallet = wallet
             };
+        }
+
+        //TODO implement the getAgentSync method
+        public Task<IAgent> GetAgentAsync(params object[] args)
+        {
+            throw new NotImplementedException();
         }
     }
 }

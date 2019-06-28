@@ -42,7 +42,7 @@ For more information on the development practises featured in this repository pl
 The following demo describes how you can connect with another agent.
 
 1. Clone [AgentFramework](https://github.com/streetcred-id/agent-framework)
-2. From the `/scripts` folder in the repository run `./start-web-agents.sh` - Note this shell script relys on [ngrok](https://ngrok.com/) to run the agents on a publically accessable addresses. Please ensure that your ngrok version is 2.3.28 or higher. You may get an error if the port stated is protected or in use - curl: (7) Failed to connect to localhost port 5037: Connection refused. If this happens simply scan for an open port and change the port number for web_addr in `/scripts/web-agents-ngrok-config.yaml` and also on line number 6 of `/scripts/start-web-agents.sh`. For Macbook open network utility to scan ports.
+2. From the `/scripts` folder in the repository run `./start-web-agents.sh` - Note this shell script relys on [ngrok](https://ngrok.com/) to run the agents on a publically accessable addresses. Please ensure that your ngrok version is 2.3.28 or higher. You may get an error if the port stated is protected or in use - curl: (7) Failed to connect to localhost port <port>: Connection refused. If this happens simply scan for an open port and change the port number for web_addr in `/scripts/web-agents-ngrok-config.yaml` and also on line number 6 of `/scripts/start-web-agents.sh`. For Macbook open network utility to scan ports.
 3. Note the public URL's that are outputed by the script with the following text `Starting Web Agents with public urls http://... http://...`
 4. Browse to one of the urls noted above.
 5. In the rendered UI, click `Connections`->`Create Invitation`, a QR code should be displayed.

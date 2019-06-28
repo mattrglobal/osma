@@ -22,7 +22,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
     {
         private readonly ConnectionRecord _record;
 
-        private readonly IAgentContextProvider _agentContextProvider;
+        private readonly ICustomAgentContextProvider _agentContextProvider;
         private readonly IMessageService _messageService;
         private readonly IDiscoveryService _discoveryService;
         private readonly IConnectionService _connectionService;
@@ -30,7 +30,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
 
         public ConnectionViewModel(IUserDialogs userDialogs,
                                    INavigationService navigationService,
-                                   IAgentContextProvider agentContextProvider,
+                                   ICustomAgentContextProvider agentContextProvider,
                                    IMessageService messageService,
                                    IDiscoveryService discoveryService,
                                    IConnectionService connectionService,

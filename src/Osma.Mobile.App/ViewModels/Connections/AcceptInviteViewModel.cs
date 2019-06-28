@@ -18,7 +18,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
         private readonly IProvisioningService _provisioningService;
         private readonly IConnectionService _connectionService;
         private readonly IMessageService _messageService;
-        private readonly IAgentContextProvider _contextProvider;
+        private readonly ICustomAgentContextProvider _contextProvider;
         private readonly IEventAggregator _eventAggregator;
         private static readonly String GENERIC_CONNECTION_REQUEST_FAILURE_MESSAGE = "Failed to accept invite!";
 
@@ -29,7 +29,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
                                      IProvisioningService provisioningService,
                                      IConnectionService connectionService,
                                      IMessageService messageService,
-                                     IAgentContextProvider contextProvider,
+                                     ICustomAgentContextProvider contextProvider,
                                      IEventAggregator eventAggregator)
                                      : base("Accept Invitiation", userDialogs, navigationService)
         {
