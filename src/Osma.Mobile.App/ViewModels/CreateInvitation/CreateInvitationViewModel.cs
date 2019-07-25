@@ -45,8 +45,6 @@ namespace Osma.Mobile.App.ViewModels.CreateInvitation
                 var context = await _agentContextProvider.GetContextAsync();
                 var (invitation, _) = await _connectionService.CreateInvitationAsync(context);
 
-                DialogService.Alert("Creating Invitation ...");
-
                 string barcodeValue = invitation.ServiceEndpoint + "?c_i=" + (invitation.ToJson().ToBase64());
                 QrCodeValue = barcodeValue;
             }
