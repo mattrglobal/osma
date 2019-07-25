@@ -74,6 +74,9 @@
     <ProjectReference Include="..\Osma.Mobile.App.Services\Osma.Mobile.App.Services.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Views\CreateInvitation\CreateInvitationPage.xaml.cs">
+      <DependentUpon>CreateInvitationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Credentials\Credentials.xaml.cs">
       <DependentUpon>CredentialsPage.xaml</DependentUpon>
     </Compile>
