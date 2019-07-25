@@ -16,7 +16,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Name="AddConnection" Order="Primary" Text="Connect" Priority="0" Command ="{Binding ScanInviteCommand}"/>
+        <ToolbarItem Name="Add Connection" Order="Primary" Text="Connect" Priority="0" Command ="{Binding ScanInviteCommand}"/>
+        <ToolbarItem Name="CreateInvitation" Order="Secondary" Text="Create Invitation" ios:NavigationPage.PrefersLargeTitles="true" Priority="0" Command ="{Binding CreateInvitationCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
