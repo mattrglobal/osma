@@ -8,6 +8,7 @@ using ReactiveUI;
 using Xamarin.Forms;
 using ZXing.Net.Mobile.Forms;
 using Hyperledger.Aries.Features.DidExchange;
+using Hyperledger.Aries.Extensions;
 
 namespace Osma.Mobile.App.ViewModels.CreateInvitation
 {
@@ -43,7 +44,7 @@ namespace Osma.Mobile.App.ViewModels.CreateInvitation
                 var context = await _agentContextProvider.GetContextAsync();
                 var (invitation, _) = await _connectionService.CreateInvitationAsync(context);
 
-                string barcodeValue = invitation.ServiceEndpoint + "?c_i=";// + invitation.ToJson().ToBase64();
+                string barcodeValue = invitation.ServiceEndpoint + "?c_i=" + invitation.ToJson().ToBase64();
                 QrCodeValue = barcodeValue;
             }
             catch (Exception ex)
