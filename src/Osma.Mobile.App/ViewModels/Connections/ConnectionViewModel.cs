@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
-using AgentFramework.Core.Contracts;
-using AgentFramework.Core.Messages;
-using AgentFramework.Core.Messages.Common;
-using AgentFramework.Core.Messages.Discovery;
-using AgentFramework.Core.Models.Records;
+using Hyperledger.Aries.Agents;
+using Hyperledger.Aries.Contracts;
+using Hyperledger.Aries.Features.DidExchange;
+using Hyperledger.Aries.Features.Discovery;
+using Hyperledger.Aries.Features.TrustPing;
 using Osma.Mobile.App.Events;
 using Osma.Mobile.App.Extensions;
 using Osma.Mobile.App.Services.Interfaces;
@@ -71,8 +71,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
 
             try
             {
-                var response = await _messageService.SendAsync(context.Wallet, message, _record, null, true);
-                protocols = response.GetMessage<DiscoveryDiscloseMessage>();
+                protocols = await _messageService.SendReceiveAsync<DiscoveryDiscloseMessage>(context.Wallet, message, _record);
             }
             catch (Exception)
             {
@@ -129,8 +128,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
             bool success = false;
             try
             {
-                var response = await _messageService.SendAsync(context.Wallet, message, _record, null, true);
-                var trustPingResponse = response.GetMessage<TrustPingResponseMessage>();
+                var trustPingResponse = await _messageService.SendReceiveAsync<TrustPingResponseMessage>(context.Wallet, message, _record);
                 success = true;
             }
             catch (Exception)

@@ -3,12 +3,11 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
-using AgentFramework.Core.Contracts;
 using Osma.Mobile.App.Services.Interfaces;
 using ReactiveUI;
 using Xamarin.Forms;
 using ZXing.Net.Mobile.Forms;
-using AgentFramework.Core.Extensions;
+using Hyperledger.Aries.Features.DidExchange;
 
 namespace Osma.Mobile.App.ViewModels.CreateInvitation
 {
@@ -44,7 +43,7 @@ namespace Osma.Mobile.App.ViewModels.CreateInvitation
                 var context = await _agentContextProvider.GetContextAsync();
                 var (invitation, _) = await _connectionService.CreateInvitationAsync(context);
 
-                string barcodeValue = invitation.ServiceEndpoint + "?c_i=" + MessageUtils(invitation.ToJson().ToBase64());
+                string barcodeValue = invitation.ServiceEndpoint + "?c_i=";// + invitation.ToJson().ToBase64();
                 QrCodeValue = barcodeValue;
             }
             catch (Exception ex)

@@ -1,8 +1,8 @@
 ﻿using System.Net.Http;
-using AgentFramework.Core.Contracts;
-using AgentFramework.Core.Handlers.Agents;
-using AgentFramework.Core.Runtime.Transport;
 using Autofac;
+using Microsoft.Extensions.DependencyInjection;
+using Autofac.Extensions.DependencyInjection;
+
 
 namespace Osma.Mobile.App.Services
 {
@@ -12,80 +12,15 @@ namespace Osma.Mobile.App.Services
         {
             base.Load(builder);
 
-            builder
-                .RegisterType<HttpMessageDispatcher>()
-                .As<IMessageDispatcher>();
+            var services = new ServiceCollection();
+            services.AddAriesFramework();
+            builder.Populate(services);
 
-            builder
-                .RegisterType<HttpClientHandler>()
-                .As<HttpMessageHandler>();
-
-            builder
-                .RegisterType<EventAggregator>()
+            builder.RegisterType<AgentContextProvider>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
 
-            builder
-                .RegisterType<AgentContextProvider>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
 
-            builder
-                .RegisterType<DefaultWalletRecordService>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-
-            builder
-                .RegisterType<DefaultWalletService>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-
-            builder
-                .RegisterType<DefaultPoolService>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-
-            builder
-                .RegisterType<DefaultConnectionService>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-
-            builder
-                .RegisterType<DefaultCredentialService>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-
-            builder
-                .RegisterType<DefaultProofService>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-
-            builder
-                .RegisterType<DefaultProvisioningService>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-
-            builder
-                .RegisterType<DefaultMessageService>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-            
-            builder
-                .RegisterType<DefaultLedgerService>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-
-            builder.RegisterType<DefaultSchemaService>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-
-            builder.RegisterType<DefaultTailsService>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-
-            builder.RegisterType<DefaultDiscoveryService>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
         }
     }
 }

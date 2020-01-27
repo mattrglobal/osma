@@ -19,9 +19,8 @@
     <NoStdLib>false</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AgentFramework.Core" Version="4.0.0-preview.662" />
     <PackageReference Include="Acr.UserDialogs" Version="7.0.1" />
-    <PackageReference Include="Autofac" Version="4.8.1" />
+    <PackageReference Include="Hyperledger.Aries" Version="1.1.0" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="2.0.0" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="2.0.0" />
     <PackageReference Include="ReactiveUI" Version="9.3.5" />

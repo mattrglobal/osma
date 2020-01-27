@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using AgentFramework.Core.Handlers.Agents;
-using Osma.Mobile.App.Services.Models;
+using Hyperledger.Aries.Agents;
+using Hyperledger.Aries.Configuration;
 
 namespace Osma.Mobile.App.Services.Interfaces
 {

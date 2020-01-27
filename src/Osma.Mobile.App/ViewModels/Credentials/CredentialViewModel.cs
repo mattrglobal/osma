@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using Acr.UserDialogs;
+using Hyperledger.Aries.Features.IssueCredential;
 using Osma.Mobile.App.Services.Interfaces;
 using ReactiveUI;
 using Xamarin.Forms;
-using AgentFramework.Core.Models.Records;
 
 namespace Osma.Mobile.App.ViewModels.Credentials
 {
