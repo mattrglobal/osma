@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
 using Acr.UserDialogs;
-using AgentFramework.Core.Models.Wallets;
+using Hyperledger.Aries.Configuration;
+using Hyperledger.Aries.Storage;
 using Osma.Mobile.App.Services.Interfaces;
-using Osma.Mobile.App.Services.Models;
 using Xamarin.Forms;
 
 namespace Osma.Mobile.App.ViewModels
@@ -31,17 +31,14 @@ namespace Osma.Mobile.App.ViewModels
             //suppling ownership info to the agent etc..
             var options = new AgentOptions
             {
-                PoolOptions = new PoolOptions
-                {
-                    GenesisFilename = "pool_genesis.txn",
-                    PoolName = "EdgeAgentPoolConnection",
-                    ProtocolVersion = 2
-                },
-                WalletOptions = new WalletOptions
-                {
-                    WalletConfiguration = new WalletConfiguration {Id = Guid.NewGuid().ToString() },
-                    WalletCredentials = new WalletCredentials {Key = "LocalWalletKey" }
-                }
+
+                GenesisFilename = "pool_genesis.txn",
+                PoolName = "EdgeAgentPoolConnection",
+                ProtocolVersion = 2,
+                
+                WalletConfiguration = new WalletConfiguration {Id = Guid.NewGuid().ToString() },
+                WalletCredentials = new WalletCredentials {Key = "LocalWalletKey" }
+                
             };
 
             if (await _agentContextProvider.CreateAgentAsync(options))

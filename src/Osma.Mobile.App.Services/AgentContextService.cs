@@ -1,12 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using AgentFramework.Core.Contracts;
-using AgentFramework.Core.Handlers.Agents;
-using AgentFramework.Core.Models.Wallets;
+using Hyperledger.Aries.Agents;
+using Hyperledger.Aries.Configuration;
+using Hyperledger.Aries.Contracts;
+using Hyperledger.Aries.Storage;
 using Hyperledger.Indy.WalletApi;
 using Osma.Mobile.App.Services.Interfaces;
-using Osma.Mobile.App.Services.Models;
+//using Osma.Mobile.App.Services.Models;
 
 namespace Osma.Mobile.App.Services
 {
@@ -48,12 +49,12 @@ namespace Osma.Mobile.App.Services
             WalletConfiguration.WalletStorageConfiguration _storage = new WalletConfiguration.WalletStorageConfiguration { Path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".indy_client") };
             options.WalletOptions.WalletConfiguration.StorageConfiguration = _storage;
 #endif
-            await _provisioningService.ProvisionAgentAsync(new BasicProvisioningConfiguration
+            await _provisioningService.ProvisionAgentAsync(new AgentOptions
             {
-                WalletConfiguration = options.WalletOptions.WalletConfiguration,
-                WalletCredentials = options.WalletOptions.WalletCredentials,
-                AgentSeed = options.Seed,
-                EndpointUri = options.EndpointUri != null ? new Uri($"{options.EndpointUri}") : null
+                WalletConfiguration = options.WalletConfiguration,
+                WalletCredentials = options.WalletCredentials,
+                AgentKeySeed = options.AgentKeySeed,
+                EndpointUri = options.EndpointUri
             });
 
             await _keyValueStoreService.SetDataAsync(AgentOptionsKey, options);
@@ -63,6 +64,7 @@ namespace Osma.Mobile.App.Services
         }
 
         public bool AgentExists() => _options != null;
+
         public async Task<IAgentContext> GetContextAsync(params object[] args)
         {
             if (!AgentExists())//TODO uniform approach to error protection
@@ -71,7 +73,7 @@ namespace Osma.Mobile.App.Services
             Wallet wallet;
             try
             {
-                wallet = await _walletService.GetWalletAsync(_options.WalletOptions.WalletConfiguration, _options.WalletOptions.WalletCredentials);
+                wallet = await _walletService.GetWalletAsync(_options.WalletConfiguration, _options.WalletCredentials);
             }
             catch (Exception e)
             {
@@ -81,12 +83,11 @@ namespace Osma.Mobile.App.Services
 
             return new AgentContext
             {
-                Did = _options.Did,
+                Did = _options.AgentDid,
                 Wallet = wallet
             };
         }
 
-        //TODO implement the getAgentSync method
         public Task<IAgent> GetAgentAsync(params object[] args)
         {
             throw new NotImplementedException();

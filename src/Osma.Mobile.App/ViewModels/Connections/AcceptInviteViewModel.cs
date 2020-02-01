@@ -3,13 +3,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
-using AgentFramework.Core.Contracts;
-using AgentFramework.Core.Messages.Connections;
-using AgentFramework.Core.Exceptions;
+using Hyperledger.Aries.Contracts;
 using Osma.Mobile.App.Events;
 using Osma.Mobile.App.Services.Interfaces;
 using ReactiveUI;
 using Xamarin.Forms;
+using Hyperledger.Aries.Configuration;
+using Hyperledger.Aries.Features.DidExchange;
+using Hyperledger.Aries.Agents;
 
 namespace Osma.Mobile.App.ViewModels.Connections
 {
@@ -45,7 +46,7 @@ namespace Osma.Mobile.App.ViewModels.Connections
         {
             if (navigationData is ConnectionInvitationMessage invite)
             {
-                InviteTitle = $"Trust {invite.Label}?";
+                InviteTitle = $"Connect to {invite.Label}?";
                 InviterUrl = invite.ImageUrl;
                 InviteContents = $"{invite.Label} would like to establish a pairwise DID connection with you. This will allow secure communication between you and {invite.Label}.";
                 _invite = invite;
@@ -58,10 +59,10 @@ namespace Osma.Mobile.App.ViewModels.Connections
             var provisioningRecord = await _provisioningService.GetProvisioningAsync(context.Wallet);
             var isEndpointUriAbsent = provisioningRecord.Endpoint.Uri == null;
             var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
-            var rsp = await _messageService.SendAsync(context.Wallet, msg, rec, _invite.RecipientKeys.First(), isEndpointUriAbsent);
+            var rsp = await _messageService.SendReceiveAsync<ConnectionResponseMessage>(context.Wallet, msg, rec);
             if (isEndpointUriAbsent)
             {
-                await _connectionService.ProcessResponseAsync(context, rsp.GetMessage<ConnectionResponseMessage>(), rec);
+                await _connectionService.ProcessResponseAsync(context, rsp, rec);
             }
         }
 
@@ -84,9 +85,9 @@ namespace Osma.Mobile.App.ViewModels.Connections
             {
                 await CreateConnection(context, _invite);
             }
-            catch (AgentFrameworkException agentFrameworkException)
+            catch (Hyperledger.Aries.AriesFrameworkException ariesFrameworkException)
             {
-                errorMessage = agentFrameworkException.Message;
+                errorMessage = ariesFrameworkException.Message;
             }
             catch (Exception) //TODO more granular error protection
             {
