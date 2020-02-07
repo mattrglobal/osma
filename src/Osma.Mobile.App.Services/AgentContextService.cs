@@ -54,7 +54,8 @@ namespace Osma.Mobile.App.Services
                 WalletConfiguration = options.WalletConfiguration,
                 WalletCredentials = options.WalletCredentials,
                 AgentKeySeed = options.AgentKeySeed,
-                EndpointUri = options.EndpointUri
+                EndpointUri = options.EndpointUri,
+                AgentName = options.AgentName == null ? "Default Agent" : options.AgentName
             });
 
             await _keyValueStoreService.SetDataAsync(AgentOptionsKey, options);
@@ -64,7 +65,6 @@ namespace Osma.Mobile.App.Services
         }
 
         public bool AgentExists() => _options != null;
-
         public async Task<IAgentContext> GetContextAsync(params object[] args)
         {
             if (!AgentExists())//TODO uniform approach to error protection
@@ -88,6 +88,7 @@ namespace Osma.Mobile.App.Services
             };
         }
 
+        //TODO implement the getAgentSync method
         public Task<IAgent> GetAgentAsync(params object[] args)
         {
             throw new NotImplementedException();
