@@ -21,7 +21,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.1" />
-    <PackageReference Include="Hyperledger.Aries" Version="1.1.0" />
+    <PackageReference Include="Hyperledger.Aries" Version="1.1.4" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

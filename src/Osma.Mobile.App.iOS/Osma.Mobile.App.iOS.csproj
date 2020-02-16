@@ -356,7 +356,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Hyperledger.Aries">
-      <Version>1.1.0</Version>
+      <Version>1.1.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Analytics">
       <Version>2.0.0</Version>
