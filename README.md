@@ -1,3 +1,7 @@
+# ARCHIVE NOTICE
+
+OSMA has joint the [Hyperledger](https://www.hyperledger.org/) family under the [Aries project](https://www.hyperledger.org/projects/aries), for further interest in this repository please refer to [here](https://github.com/hyperledger/aries-mobileagent-xamarin).
+
 # Project Osma
 
 This repository is the home of Project Osma, an open source mobile agent for achieving self sovereign identity (SSI).
