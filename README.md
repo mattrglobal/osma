@@ -1,6 +1,6 @@
 # ARCHIVE NOTICE
 
-OSMA has joint the [Hyperledger](https://www.hyperledger.org/) family under the [Aries project](https://www.hyperledger.org/projects/aries), for further interest in this repository please refer to [here](https://github.com/hyperledger/aries-mobileagent-xamarin).
+OSMA has joined the [Hyperledger](https://www.hyperledger.org/) family under the [Aries project](https://www.hyperledger.org/projects/aries), for further interest in this repository please refer to [here](https://github.com/hyperledger/aries-mobileagent-xamarin).
 
 # Project Osma
 
